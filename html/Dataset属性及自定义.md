@@ -1,5 +1,4 @@
 > Dataset 属性简介
-
 - 在html5中可为所有元素添加一种自定义的属性，这种属性的前缀以data-开头，比如：data-name,目的是为元素提供与页面渲染无关，但与dom元素强相关的属性。添加完自定义属性后我们可以通过元素的dataset属性来访问其值。
 - Dataset 是一个DOMString的映射，每个自定义数据属性的一个条目。
 - 以 data- 开头。它只能包含字母，数字和以下字符： dash (-), dot (.), colon (:), underscore (_)  - 但不是任何ASCII大写字母（A到Z）。

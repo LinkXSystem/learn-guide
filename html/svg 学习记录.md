@@ -15,7 +15,13 @@
 
 > svg 预定义的形状元素
 ```
-<!-- 矩形 [位置： x="0" y="0", 圆角：rx="20" ry="20"， 透明：style="opacity:0.5, fill-opacity:0.5, stroke-opacity: 0.5"] -->
+<!-- 矩形 
+[
+    位置：x="0" y="0", 
+    圆角：rx="20" ry="20"， 
+    透明：style="opacity:0.5, fill-opacity:0.5, stroke-opacity: 0.5"
+] 
+-->
 <rect width="300" height="100"
   style="fill:rgb(0,0,255);stroke-width:1;stroke:rgb(0,0,0)"/>
 
@@ -72,7 +78,22 @@
 </text>
 ```
 
+> svg 的 stroke 属性
+- stroke-linecap属性定义不同类型的开放路径的终结。
+```
+<g fill="none" stroke="black" stroke-width="6">
+    <path stroke-linecap="butt" d="M5 20 l215 0" />
+    <path stroke-linecap="round" d="M5 40 l215 0" />
+    <path stroke-linecap="square" d="M5 60 l215 0" />
+</g>
+```
+- stroke-dasharray属性用于定义创建虚线。
+```
+<g fill="none" stroke="black" stroke-width="4">
+    <path stroke-dasharray="5,5" d="M5 20 l215 0" />
+    <path stroke-dasharray="10,10" d="M5 40 l215 0" />
+    <path stroke-dasharray="20,10,5,5,5,10" d="M5 60 l215 0" />
+</g>
+```
 
-
-
-
+> svg 的滤镜

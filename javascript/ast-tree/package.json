@@ -1,0 +1,14 @@
+{
+  "name": "ast-tree",
+  "version": "1.0.0",
+  "description": "AST分析",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "ZHI",
+  "license": "ISC",
+  "dependencies": {
+    "recast": "^0.15.3"
+  }
+}

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .time-item {
+            position: relative;
+            display: flex;
+        }
+
+        .time-item span:nth-of-type(1) {
+            display: inline-block;
+            height: 20px;
+            font-size: 14px;
+            font-family: PingFangSC-Regular;
+            color: rgba(59, 59, 59, 1);
+            line-height: 20px;
+            margin-right: 22px;
+            transform: translate(0%, calc(-50% + 5px));
+        }
+
+        .time-item .solt {
+            /* display: inline-block; */
+            height: 100px;
+            display: flex;
+            position: relative;
+        }
+
+        .time-item .solt::before {
+            display: inline-block;
+            margin: 0px 22px 0px 0px;
+            content: '';
+            width: 2px;
+            height: 100%;
+            background-color: rgba(213, 184, 115, 1);
+        }
+
+        .time-item .solt::after {
+            position: absolute;
+            content: '';
+            display: block;
+            width: 10px;
+            height: 10px;
+            top: 0px;
+            left: -4px;
+            background-color: rgba(213, 184, 115, 1);
+        }
+
+        /* .time-item .solt span {
+            width: 33px;
+            height: 25px;
+            font-size: 18px;
+            font-family: PingFangSC-Medium;
+            color: rgba(217, 33, 40, 1);
+            line-height: 25px;
+        } */
+
+        /* .time-item .solt div {
+            width: 200px;
+            height: 60px;
+            background: rgba(217, 33, 40, 1);
+        } */
+    </style>
+</head>
+
+<body>
+    <div class="time-item">
+        <span>2018.5.14</span>
+        <div class="solt">
+            <div style="display: inline-block;">
+                <span>+50</span>
+                <div class="solt-block">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="time-item">
+        <span>2018.5.14</span>
+        <div class="solt">
+            <div style="display: inline-block;">
+                <span>+50</span>
+                <div class="solt-block">
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,15 @@
+{
+  "name": "engineering",
+  "version": "1.0.0",
+  "description": "CSS 工程化笔记",
+  "main": "index.js",
+  "scripts": {
+    "build": "postcss css\\modules.css -o modules.build.css"
+  },
+  "author": "zhi",
+  "license": "ISC",
+  "devDependencies": {
+    "autoprefixer": "^9.1.5",
+    "postcss-cli": "^6.0.0"
+  }
+}

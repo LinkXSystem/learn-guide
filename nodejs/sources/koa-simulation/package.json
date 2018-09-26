@@ -1,0 +1,14 @@
+{
+  "name": "koa-simulation",
+  "version": "1.0.0",
+  "description": "KOA 源码研究",
+  "main": "index.js",
+  "scripts": {
+    "test": "nodemon test/application.test.js"
+  },
+  "keywords": [
+    "koa"
+  ],
+  "author": "zhi",
+  "license": "ISC"
+}

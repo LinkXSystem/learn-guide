@@ -1,10 +1,10 @@
 {
   "name": "engineering",
   "version": "1.0.0",
-  "description": "CSS 工程化笔记",
+  "description": "CSS 工程化笔记 (POSTCSS)",
   "main": "index.js",
   "scripts": {
-    "build": "postcss css\\modules.css -o modules.build.css"
+    "build": "postcss css\\modules.css -o build\\modules.build.css"
   },
   "author": "zhi",
   "license": "ISC",

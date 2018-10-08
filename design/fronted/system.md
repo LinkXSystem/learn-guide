@@ -3,9 +3,15 @@
 > 注册登录 [流程]
 
 ```flow
-st=>start: 开始
-e=>end: 结束
-st->e
+st=>start: Start:>https://www.markdown-syntax.com
+io=>inputoutput: verification
+op=>operation: Your Operation
+cond=>condition: Yes or No?
+sub=>subroutine: Your Subroutine
+e=>end
+st->io->op->cond
+cond(yes)->e
+cond(no)->sub->io
 ```
 
 > 用户信息 [流程]

@@ -1,3 +1,5 @@
+<script src="https://cdnjs.cloudflare.com/ajax/libs/flowchart/1.10.0/flowchart.min.js"></script>
+
 > 注册登录 [流程]
 
 ```flow

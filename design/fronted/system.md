@@ -1,4 +1,4 @@
-<script src="https://cdnjs.cloudflare.com/ajax/libs/flowchart/1.10.0/flowchart.min.js"></script>
+<script src="https://unpkg.com/mermaid@7.1.0/dist/mermaid.min.js"></script>
 
 > 注册登录 [流程]
 

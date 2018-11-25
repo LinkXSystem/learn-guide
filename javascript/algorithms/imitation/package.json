@@ -1,11 +1,14 @@
 {
-  "name": "imitating-writing",
+  "name": "imitation",
   "version": "1.0.0",
-  "description": "",
+  "description": "算法",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "example": "node ./test/example.test.js"
   },
-  "author": "",
-  "license": "ISC"
+  "author": "zhi",
+  "license": "ISC",
+  "dependencies": {
+    "benchmark": "^2.1.4"
+  }
 }

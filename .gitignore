@@ -1,6 +1,2 @@
-# CSS 工程化项目
-css/design/postcss/node_modules
-
-# Javascript源码研究
-javascript/module-sources/node_modules
-javascript/module-sources/sources
+# shielding node_module about sources
+**/node_modules

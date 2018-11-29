@@ -14,6 +14,7 @@
     "@babel/types": "^7.1.6"
   },
   "devDependencies": {
+    "js2flowchart": "^1.1.7",
     "jscodeshift": "^0.5.1",
     "recast": "^0.16.1"
   }

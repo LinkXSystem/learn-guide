@@ -1,2 +1,4 @@
 # shielding node_module about sources
 **/node_modules
+
+*.cpp

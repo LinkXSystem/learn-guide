@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+    <script src="../assets/js/THREE.js"></script>
+    <style>
+      html,
+      body,
+      * {
+        box-sizing: border-box;
+      }
+    </style>
+  </head>
+  <body>
+    <script>
+      const sence = new THREE.Scene();
+      const camera = new THREE.PerspectiveCamera(
+        75,
+        window.innerWidth / window.innerHeight,
+        0.1,
+        1000,
+      );
+
+      const renderer = new THREE.WebGLRenderer();
+      renderer.setSize(window.innerWidth, window.innerHeight);
+      document.body.appendChild(renderer.domElement);
+
+      const geometry = new THREE.BoxGeometry(1, 1, 1);
+      const material = new THREE.MeshBasicMaterial({
+        color: 0x00ff00,
+      });
+      const cube = new THREE.Mesh(geometry, material);
+      sence.add(cube);
+
+      camera.position.z = 5;
+
+      const animate = function() {
+        requestAnimationFrame(animate);
+
+        cube.rotation.x += 0.1;
+        cube.rotation.y += 0.1;
+
+        renderer.render(sence, camera);
+      };
+
+      animate();
+
+      // function initial() {
+      //   const sence = new THREE.Scene();
+
+      // }
+    </script>
+  </body>
+</html>

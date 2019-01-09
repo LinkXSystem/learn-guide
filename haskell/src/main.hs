@@ -1,0 +1,1 @@
+mutil x = x + x

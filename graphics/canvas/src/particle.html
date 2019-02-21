@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+    <style>
+      html,
+      body,
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <script>
+      function background() {
+        const background = document.createElement('canvas');
+
+        background.width = window.innerWidth;
+        background.height = window.innerHeight;
+
+        background.style.position = 'absolute';
+        background.style.top = '0px';
+        background.style.left = '0px';
+
+        background.style.zIndex = '1001';
+        background.style.pointerEvents;
+
+        document.body.appendChild(background);
+      }
+
+      function initial() {
+        background();
+      }
+
+      initial();
+    </script>
+  </body>
+</html>

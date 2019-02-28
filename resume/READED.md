@@ -23,9 +23,23 @@
 
 # 联系方式
 
-- 手机：15706663187
-- 微信：15706663187
-- Email：linkasde_system@163.com
+<div style="display: flex;">
+  <img
+    src="https://raw.githubusercontent.com/LinkXSystem/learn-guide/master/resume/assets/image/wechat.jpg"
+    style="width: 120px; height: 120px;"
+  />
+  <div style="margin-left: 1em;">
+    <p>
+      <span>手机：15706663187</span>
+    </p>
+    <p>
+      <span>微信：15706663187</span>
+    </p>
+    <p>
+      <span>Email：linkasde_system@163.com</span>
+    </p>
+  </div>
+</div>
 
 ---
 

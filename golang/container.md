@@ -1,6 +1,6 @@
-> RabbitMQ 的 Docker 部署
+# RabbitMQ 的 Docker 部署
 
-```
+```shell
 docker pull rabbitmq:management
 
 docker run -d --name golang-rabbit --publish 5671:5671 \

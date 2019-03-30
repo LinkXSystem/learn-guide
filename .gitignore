@@ -1,4 +1,9 @@
+
 # shielding node_module about sources
 **/node_modules
 
+# igore file of cpp
 *.cpp
+
+# ignore node_modules
+yarn.lock

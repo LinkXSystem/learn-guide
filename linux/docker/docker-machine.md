@@ -1,6 +1,6 @@
-### docker machine 的 基本使用
+# docker machine 的 基本使用
 
-> 基本命令
+## 基本命令
 
 ```shell
 # geting ralated commands about docker-machine
@@ -16,7 +16,7 @@ docker-machine create machine-name
 docker-machine ssh machine-name command
 ```
 
-> 远程主机
+## 远程主机
 
 - 关于 docker-machine 指定驱动的部署文档： https://docs.docker.com/machine/drivers/
 - driver ：

@@ -1,0 +1,23 @@
+{
+  "name": "learn-guide",
+  "version": "1.0.0",
+  "description": "希望自己记得曾经学过的东西，慢慢的选择精通一个方面了之后再回过头来，还能看见当初那些精彩的地方。",
+  "main": "",
+  "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/LinkXSystem/learn-guide.git"
+  },
+  "keywords": [
+    "guide"
+  ],
+  "author": "zhi",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/LinkXSystem/learn-guide/issues"
+  },
+  "homepage": "https://github.com/LinkXSystem/learn-guide#readme",
+  "devDependencies": {
+    "jest": "^24.5.0"
+  }
+}

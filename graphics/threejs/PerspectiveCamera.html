@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Threejs - PerspectiveCamera</title>
+    <link rel="stylesheet" href="main.css" />
+    <script src="https://cdn.bootcss.com/three.js/r83/three.js"></script>
+    <script src="https://cdn.bootcss.com/dat-gui/0.7.6/dat.gui.js"></script>
+  </head>
+  <body>
+    <script>
+      const gui = new dat.GUI({
+        name: "Three.js Palyground"
+      });
+
+      let rotation = {
+        x: 0,
+        y: 0,
+        z: 0
+      };
+
+      let viewport = {
+        fov: 75,
+        near: 0.1,
+        far: 1000
+      };
+
+      let MouseX = 0;
+      let MouseY = 0;
+
+      let WindowHalfX = window.innerWidth / 2;
+      let WindowHalfY = window.innerHeight / 2;
+
+      let camera, scene, renderer;
+
+      setDatGUI();
+      init();
+      animation();
+
+      function setDatGUI() {
+        let folder = gui.addFolder("Camera Configuration");
+        const max = 10000;
+        folder.add(viewport, "fov", 0, max, 1);
+        folder.add(viewport, "near", 0, max, 0.1);
+        folder.add(viewport, "far", 0, max, 1);
+        folder = gui.addFolder("Rotation Configuration");
+        folder.add(rotation, "x", 0, 1.0, 0.1);
+        folder.add(rotation, "y", 0, 1.0, 0.1);
+        folder.add(rotation, "z", 0, 1.0, 0.1);
+      }
+
+      function init() {
+        camera = new THREE.PerspectiveCamera(
+          75,
+          window.innerWidth / window.innerHeight,
+          0.1,
+          1000
+        );
+        camera.position.z = 5;
+
+        scene = new THREE.Scene();
+
+        // antialias 抗锯齿化
+        renderer = new THREE.WebGLRenderer({ antialias: true });
+        renderer.setPixelRatio(window.devicePixelRatio);
+        renderer.setSize(window.innerWidth, window.innerHeight);
+
+        document.body.appendChild(renderer.domElement);
+
+        document.addEventListener("mousemove", onMouseMove, false);
+
+        window.addEventListener("resize", onWindowResize, false);
+
+        game();
+      }
+
+      function game() {
+        const geometry = new THREE.BoxGeometry(1, 1, 1);
+        const material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
+        const cube = new THREE.Mesh(geometry, material);
+
+        scene.add(cube);
+      }
+
+      function onWindowResize() {
+        WindowHalfX = window.innerWidth / 2;
+        WindowHalfY = window.innerHeight / 2;
+
+        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.updateProjectionMatrix();
+
+        renderer.setSize(window.innerWidth, window.innerHeight);
+      }
+
+      function onMouseMove(event) {
+        MouseX = event.clientX - WindowHalfX;
+        MouseY = event.clientY - WindowHalfY;
+      }
+
+      function render() {
+        const { children } = scene;
+
+        if (children.length) {
+          const cube = children[0];
+          const { x, y, z } = rotation;
+          cube.rotation.x += x;
+          cube.rotation.y += y;
+          cube.rotation.z += z;
+        }
+
+        renderer.render(scene, camera);
+      }
+
+      function animation() {
+        requestAnimationFrame(animation);
+        render();
+      }
+    </script>
+  </body>
+</html>

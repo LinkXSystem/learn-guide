@@ -6,9 +6,9 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>Threejs - Loader</title>
     <link rel="stylesheet" href="main.css" />
-    <script src="https://unpkg.com/three@0.83.0/build/three.min.js"></script>
-    <script src="https://unpkg.com/three@0.83.0/examples/js/loaders/GLTFLoader.js"></script>
-    <script src="https://unpkg.com/three@0.83.0/examples/js/controls/OrbitControls.js"></script>
+    <script src="https://unpkg.com/three@0.105.1/build/three.js"></script>
+    <script src="https://unpkg.com/three@0.105.1/examples/js/controls/OrbitControls.js"></script>
+    <script src="https://unpkg.com/three@0.105.1/examples/js/loaders/GLTFLoader.js"></script>
   </head>
   <body>
     <script>
@@ -35,7 +35,7 @@
 
         loader = new THREE.GLTFLoader();
         loader.load(
-          './models/che/scene.gltf',
+          'models/damaged-helmet/glTF/DamagedHelmet.gltf',
           function(gltf) {
             scene.add(gltf.scene);
           },

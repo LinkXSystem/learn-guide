@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Threejs - Loader</title>
+    <link rel="stylesheet" href="main.css" />
+    <script src="https://unpkg.com/three@0.105.1/build/three.js"></script>
+    <script src="https://unpkg.com/three@0.105.1/examples/js/controls/OrbitControls.js"></script>
+  </head>
+  <body>
+    <script>
+      let camera, scene, renderer;
+      let control, loader;
+
+      init();
+      animate();
+
+      function init() {
+        const container = document.createElement("div");
+        const width = window.innerWidth || 1;
+        const height = window.innerHeight || 1;
+        const aspect = width / height;
+
+        const devicePixelRatio = window.devicePixelRatio || 1;
+
+        renderer = new THREE.WebGLRenderer();
+        renderer.setPixelRatio(devicePixelRatio);
+        renderer.setSize(width, height);
+        document.body.appendChild(renderer.domElement);
+
+        camera = new THREE.PerspectiveCamera(65, aspect, 1, 10);
+        camera.position.z = 7;
+
+        scene = new THREE.Scene();
+        scene.background = new THREE.Color(0xffffff);
+
+        light(scene, 0xffffff, 1, [-1, 2, 4]);
+
+        const geometry = new THREE.BoxGeometry(1, 1, 1);
+
+        const d = 1;
+
+        cube(scene, geometry, hsl(0 / 8, 1, 0.5), [-1, -1, -1]);
+        cube(scene, geometry, hsl(1 / 8, 1, 0.5), [1, -1, -1]);
+        cube(scene, geometry, hsl(2 / 8, 1, 0.5), [-1, 1, -1]);
+        cube(scene, geometry, hsl(3 / 8, 1, 0.5), [1, 1, -1]);
+        cube(scene, geometry, hsl(4 / 8, 1, 0.5), [-1, -1, 1]);
+        cube(scene, geometry, hsl(5 / 8, 1, 0.5), [1, -1, 1]);
+        cube(scene, geometry, hsl(6 / 8, 1, 0.5), [-1, 1, 1]);
+        cube(scene, geometry, hsl(7 / 8, 1, 0.5), [1, 1, 1]);
+
+        control = new THREE.OrbitControls(camera, renderer.domElement);
+        control.target.set(0, 0, 0);
+        control.update();
+
+        window.addEventListener("resize", onWindowResize, false);
+      }
+
+      function hsl(h, s, l) {
+        return new THREE.Color().setHSL(h, s, l);
+      }
+
+      function light(scene, color, intensity, postion) {
+        const instance = new THREE.DirectionalLight(color, intensity);
+        instance.position.set(...postion);
+        scene.add(instance);
+      }
+
+      function cube(scene, geometry, color, position) {
+        const material = new THREE.MeshPhongMaterial({
+          color,
+          opacity: 0.5,
+          transparent: true
+        });
+
+        const instance = new THREE.Mesh(geometry, material);
+        scene.add(instance);
+        instance.position.set(...position);
+
+        return instance;
+      }
+
+      function onWindowResize() {
+        const width = window.innerWidth;
+        const height = window.innerHeight;
+        const aspect = width / height;
+
+        camera.aspect = aspect;
+        camera.updateProjectionMatrix();
+
+        renderer.setSize(width, height);
+      }
+
+      function animate() {
+        requestAnimationFrame(animate);
+
+        camera.updateMatrixWorld(true);
+
+        renderer.render(scene, camera);
+      }
+    </script>
+  </body>
+</html>

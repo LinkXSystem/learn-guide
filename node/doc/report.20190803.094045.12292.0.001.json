@@ -1,0 +1,477 @@
+
+{
+  "header": {
+    "reportVersion": 1,
+    "event": "That is error of test by nodejs's report feature !!!",
+    "trigger": "Exception",
+    "filename": "report.20190803.094045.12292.0.001.json",
+    "dumpEventTime": "2019-08-03T09:40:45Z",
+    "dumpEventTimeStamp": "1564796445726",
+    "processId": 12292,
+    "cwd": "C:\\Users\\Administrator\\Github\\learn-guide\\node\\doc",
+    "commandLine": [
+      "C:\\Program Files\\nodejs\\node.exe",
+      "--experimental-report",
+      "--report-uncaught-exception",
+      "--report-on-signal",
+      "--report-on-fatalerror",
+      ".\\report.js"
+    ],
+    "nodejsVersion": "v12.7.0",
+    "wordSize": 64,
+    "arch": "x64",
+    "platform": "win32",
+    "componentVersions": {
+      "node": "12.7.0",
+      "v8": "7.5.288.22-node.16",
+      "uv": "1.30.1",
+      "zlib": "1.2.11",
+      "brotli": "1.0.7",
+      "ares": "1.15.0",
+      "modules": "72",
+      "nghttp2": "1.39.1",
+      "napi": "4",
+      "llhttp": "1.1.4",
+      "http_parser": "2.8.0",
+      "openssl": "1.1.1c",
+      "cldr": "35.1",
+      "icu": "64.2",
+      "tz": "2019a",
+      "unicode": "12.1"
+    },
+    "release": {
+      "name": "node",
+      "headersUrl": "https://nodejs.org/download/release/v12.7.0/node-v12.7.0-headers.tar.gz",
+      "sourceUrl": "https://nodejs.org/download/release/v12.7.0/node-v12.7.0.tar.gz",
+      "libUrl": "https://nodejs.org/download/release/v12.7.0/win-x64/node.lib"
+    },
+    "osName": "Windows_NT",
+    "osRelease": "10.0.18362",
+    "osVersion": "Windows 10 Pro",
+    "osMachine": "x86_64",
+    "cpus": [
+      {
+        "model": "Intel(R) Core(TM) i5-4460  CPU @ 3.20GHz",
+        "speed": 3193,
+        "user": 54453421,
+        "nice": 0,
+        "sys": 42585562,
+        "idle": 467975328,
+        "irq": 3374546
+      },
+      {
+        "model": "Intel(R) Core(TM) i5-4460  CPU @ 3.20GHz",
+        "speed": 3193,
+        "user": 54453421,
+        "nice": 0,
+        "sys": 42585562,
+        "idle": 467975328,
+        "irq": 3374546
+      },
+      {
+        "model": "Intel(R) Core(TM) i5-4460  CPU @ 3.20GHz",
+        "speed": 3193,
+        "user": 54453421,
+        "nice": 0,
+        "sys": 42585562,
+        "idle": 467975328,
+        "irq": 3374546
+      },
+      {
+        "model": "Intel(R) Core(TM) i5-4460  CPU @ 3.20GHz",
+        "speed": 3193,
+        "user": 54453421,
+        "nice": 0,
+        "sys": 42585562,
+        "idle": 467975328,
+        "irq": 3374546
+      }
+    ],
+    "host": "DESKTOP-M7F1UQO"
+  },
+  "javascriptStack": {
+    "message": "Error: That is error of test by nodejs's report feature !!!",
+    "stack": [
+      "at main (C:\\Users\\Administrator\\Github\\learn-guide\\node\\doc\\report.js:2:9)",
+      "at Object.<anonymous> (C:\\Users\\Administrator\\Github\\learn-guide\\node\\doc\\report.js:5:1)",
+      "at Module._compile (internal/modules/cjs/loader.js:777:30)",
+      "at Object.Module._extensions..js (internal/modules/cjs/loader.js:788:10)",
+      "at Module.load (internal/modules/cjs/loader.js:643:32)",
+      "at Function.Module._load (internal/modules/cjs/loader.js:556:12)",
+      "at Function.Module.runMain (internal/modules/cjs/loader.js:840:10)"
+    ]
+  },
+  "nativeStack": [
+    {
+      "pc": "0x00007ff6e9086b89",
+      "symbol": "std::basic_ostream<char,std::char_traits<char> >::operator<<+10841"
+    },
+    {
+      "pc": "0x00007ff6e908a4fc",
+      "symbol": "std::basic_ostream<char,std::char_traits<char> >::operator<<+25548"
+    },
+    {
+      "pc": "0x00007ff6e90894a8",
+      "symbol": "std::basic_ostream<char,std::char_traits<char> >::operator<<+21368"
+    },
+    {
+      "pc": "0x00007ff6e9083676",
+      "symbol": "std::basic_ostream<char,std::char_traits<char> >::basic_ostream<char,std::char_traits<char> >+5638"
+    },
+    {
+      "pc": "0x00007ff6e976a89b",
+      "symbol": "v8::internal::StubCache::Set+1627"
+    },
+    {
+      "pc": "0x00007ff6e98ef9a8",
+      "symbol": "v8::internal::Builtins::builtin_handle+336280"
+    },
+    {
+      "pc": "0x00007ff6e98efcf8",
+      "symbol": "v8::internal::Builtins::builtin_handle+337128"
+    },
+    {
+      "pc": "0x00007ff6e98efafe",
+      "symbol": "v8::internal::Builtins::builtin_handle+336622"
+    },
+    {
+      "pc": "0x00007ff6e9d7982d",
+      "symbol": "v8::internal::SetupIsolateDelegate::SetupHeap+614605"
+    },
+    {
+      "pc": "0x00007ff6e9cedcdc",
+      "symbol": "v8::internal::SetupIsolateDelegate::SetupHeap+42364"
+    },
+    {
+      "pc": "0x00007ff6e9ceb611",
+      "symbol": "v8::internal::SetupIsolateDelegate::SetupHeap+32433"
+    },
+    {
+      "pc": "0x00007ff6e9ceb1fc",
+      "symbol": "v8::internal::SetupIsolateDelegate::SetupHeap+31388"
+    },
+    {
+      "pc": "0x00007ff6e981f73c",
+      "symbol": "v8::internal::StackGuard::InitThread+972"
+    },
+    {
+      "pc": "0x00007ff6e981e656",
+      "symbol": "v8::internal::Execution::Call+182"
+    },
+    {
+      "pc": "0x00007ff6e99394b2",
+      "symbol": "v8::Function::Call+594"
+    },
+    {
+      "pc": "0x00007ff6e9174aef",
+      "symbol": "v8::base::CPU::has_sse+43599"
+    },
+    {
+      "pc": "0x00007ff6e91738db",
+      "symbol": "v8::base::CPU::has_sse+38971"
+    },
+    {
+      "pc": "0x00007ff6e96fcfa0",
+      "symbol": "v8::internal::MessageHandler::ReportMessage+1440"
+    },
+    {
+      "pc": "0x00007ff6e96fcd3d",
+      "symbol": "v8::internal::MessageHandler::ReportMessage+829"
+    },
+    {
+      "pc": "0x00007ff6e9730f77",
+      "symbol": "v8::internal::Isolate::RegisterManagedPtrDestructor+2023"
+    },
+    {
+      "pc": "0x00007ff6e9730d8d",
+      "symbol": "v8::internal::Isolate::RegisterManagedPtrDestructor+1533"
+    },
+    {
+      "pc": "0x00007ff6e981f780",
+      "symbol": "v8::internal::StackGuard::InitThread+1040"
+    },
+    {
+      "pc": "0x00007ff6e981e656",
+      "symbol": "v8::internal::Execution::Call+182"
+    },
+    {
+      "pc": "0x00007ff6e99394b2",
+      "symbol": "v8::Function::Call+594"
+    },
+    {
+      "pc": "0x00007ff6e919743e",
+      "symbol": "node::Start+1150"
+    },
+    {
+      "pc": "0x00007ff6e91976e7",
+      "symbol": "node::Start+1831"
+    },
+    {
+      "pc": "0x00007ff6e919665a",
+      "symbol": "node::LoadEnvironment+26"
+    },
+    {
+      "pc": "0x00007ff6e913c3f7",
+      "symbol": "v8::internal::Scope::locals+28999"
+    },
+    {
+      "pc": "0x00007ff6e91970d3",
+      "symbol": "node::Start+275"
+    },
+    {
+      "pc": "0x00007ff6e905c8dc",
+      "symbol": "AES_cbc_encrypt+15116"
+    },
+    {
+      "pc": "0x00007ff6e9e6cea8",
+      "symbol": "v8::internal::CodeStubAssembler::WordIsPowerOfTwo+151192"
+    },
+    {
+      "pc": "0x00007fffb1ac7bd4",
+      "symbol": "BaseThreadInitThunk+20"
+    },
+    {
+      "pc": "0x00007fffb268ce71",
+      "symbol": "RtlUserThreadStart+33"
+    }
+  ],
+  "javascriptHeap": {
+    "totalMemory": 4509696,
+    "totalCommittedMemory": 4509696,
+    "usedMemory": 2408656,
+    "availableMemory": 2194992200,
+    "memoryLimit": 2197815296,
+    "heapSpaces": {
+      "read_only_space": {
+        "memorySize": 262144,
+        "committedMemory": 262144,
+        "capacity": 261832,
+        "used": 31960,
+        "available": 229872
+      },
+      "new_space": {
+        "memorySize": 2097152,
+        "committedMemory": 2097152,
+        "capacity": 1047328,
+        "used": 640080,
+        "available": 407248
+      },
+      "old_space": {
+        "memorySize": 1191936,
+        "committedMemory": 1191936,
+        "capacity": 1085904,
+        "used": 1083752,
+        "available": 2152
+      },
+      "code_space": {
+        "memorySize": 425984,
+        "committedMemory": 425984,
+        "capacity": 153984,
+        "used": 153984,
+        "available": 0
+      },
+      "map_space": {
+        "memorySize": 266240,
+        "committedMemory": 266240,
+        "capacity": 236720,
+        "used": 236720,
+        "available": 0
+      },
+      "large_object_space": {
+        "memorySize": 266240,
+        "committedMemory": 266240,
+        "capacity": 262160,
+        "used": 262160,
+        "available": 0
+      },
+      "code_large_object_space": {
+        "memorySize": 0,
+        "committedMemory": 0,
+        "capacity": 0,
+        "used": 0,
+        "available": 0
+      },
+      "new_large_object_space": {
+        "memorySize": 0,
+        "committedMemory": 0,
+        "capacity": 1047328,
+        "used": 0,
+        "available": 1047328
+      }
+    }
+  },
+  "resourceUsage": {
+    "userCpuSeconds": 0.218,
+    "kernelCpuSeconds": 0.031,
+    "cpuConsumptionPercent": 24.9,
+    "maxRss": 43020288,
+    "pageFaults": {
+      "IORequired": 11133,
+      "IONotRequired": 0
+    },
+    "fsActivity": {
+      "reads": 1,
+      "writes": 5
+    }
+  },
+  "libuv": [
+    {
+      "type": "async",
+      "is_active": true,
+      "is_referenced": false,
+      "address": "0x000001bf4069c820"
+    },
+    {
+      "type": "timer",
+      "is_active": false,
+      "is_referenced": false,
+      "address": "0x000001bf4072d758",
+      "repeat": 0,
+      "firesInMsFromNow": 310433632688,
+      "expired": false
+    },
+    {
+      "type": "check",
+      "is_active": true,
+      "is_referenced": false,
+      "address": "0x000001bf4072d7f8"
+    },
+    {
+      "type": "idle",
+      "is_active": false,
+      "is_referenced": true,
+      "address": "0x000001bf4072d870"
+    },
+    {
+      "type": "prepare",
+      "is_active": false,
+      "is_referenced": false,
+      "address": "0x000001bf4072d8e8"
+    },
+    {
+      "type": "check",
+      "is_active": false,
+      "is_referenced": false,
+      "address": "0x000001bf4072d960"
+    },
+    {
+      "type": "async",
+      "is_active": true,
+      "is_referenced": false,
+      "address": "0x000001bf42059bf0"
+    },
+    {
+      "type": "async",
+      "is_active": true,
+      "is_referenced": false,
+      "address": "0x00007ff6eaa61c10"
+    },
+    {
+      "type": "async",
+      "is_active": true,
+      "is_referenced": false,
+      "address": "0x00007ff6eaa61d10"
+    },
+    {
+      "type": "loop",
+      "is_active": false,
+      "address": "0x00007ff6eaa639a0"
+    }
+  ],
+  "environmentVariables": {
+    "ALLUSERSPROFILE": "C:\\ProgramData",
+    "APPDATA": "C:\\Users\\Administrator\\AppData\\Roaming",
+    "ChocolateyInstall": "C:\\ProgramData\\chocolatey",
+    "ChocolateyLastPathUpdate": "132070277710190929",
+    "ChocolateyToolsLocation": "C:\\tools",
+    "CommonProgramFiles": "C:\\Program Files\\Common Files",
+    "CommonProgramFiles(x86)": "C:\\Program Files (x86)\\Common Files",
+    "CommonProgramW6432": "C:\\Program Files\\Common Files",
+    "COMPUTERNAME": "DESKTOP-M7F1UQO",
+    "ComSpec": "C:\\WINDOWS\\system32\\cmd.exe",
+    "DriverData": "C:\\Windows\\System32\\Drivers\\DriverData",
+    "FPS_BROWSER_APP_PROFILE_STRING": "Internet Explorer",
+    "FPS_BROWSER_USER_PROFILE_STRING": "Default",
+    "GYP_MSVS_VERSION": "2015",
+    "HOMEDRIVE": "C:",
+    "HOMEPATH": "\\Users\\Administrator",
+    "LOCALAPPDATA": "C:\\Users\\Administrator\\AppData\\Local",
+    "LOGONSERVER": "\\\\DESKTOP-M7F1UQO",
+    "NUMBER_OF_PROCESSORS": "4",
+    "NVM_HOME": "C:\\Users\\Administrator\\AppData\\Roaming\\nvm",
+    "NVM_SYMLINK": "C:\\Program Files\\nodejs",
+    "OneDrive": "C:\\Users\\Administrator\\OneDrive",
+    "OS": "Windows_NT",
+    "Path": "C:\\Program Files (x86)\\NetSarang\\Xshell 6\\;C:\\ProgramData\\DockerDesktop\\version-bin;C:\\Program Files\\Docker\\Docker\\Resources\\bin;C:\\Program Files\\Haskell\\bin;C:\\Program Files\\Haskell Platform\\8.6.3\\lib\\extralibs\\bin;C:\\Program Files\\Haskell Platform\\8.6.3\\bin;C:\\Program Files (x86)\\Common Files\\Oracle\\Java\\javapath;C:\\WINDOWS\\system32;C:\\WINDOWS;C:\\WINDOWS\\System32\\Wbem;C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\;C:\\WINDOWS\\System32\\OpenSSH\\;C:\\Program Files\\Git\\cmd;C:\\Users\\Administrator\\AppData\\Roaming\\nvm;C:\\Program Files\\nodejs;E:\\Cmder;C:\\Program Files\\Haskell Platform\\8.6.3\\mingw\\bin;C:\\GitLab-Runner;C:\\Python27;E:\\lua-5.3.5_Win64_bin;C:\\ProgramData\\chocolatey\\bin;C:\\Program Files\\CMake\\bin;C:\\Program Files (x86)\\Windows Kits\\10\\Windows Performance Toolkit\\;C:\\Python37\\Scripts;C:\\Python37;C:\\Users\\Administrator\\AppData\\Local\\Programs\\Python\\Python36\\Scripts\\;C:\\Users\\Administrator\\AppData\\Local\\Programs\\Python\\Python36\\;C:\\Users\\Administrator\\AppData\\Roaming\\cabal\\bin;C:\\Users\\Administrator\\AppData\\Roaming\\local\\bin;C:\\Users\\Administrator\\AppData\\Local\\Microsoft\\WindowsApps;C:\\Users\\Administrator\\AppData\\Local\\Programs\\Microsoft VS Code\\bin;C:\\Users\\Administrator\\AppData\\Roaming\\nvm;C:\\Program Files\\nodejs;",
+    "PATHEXT": ".COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC;.CPL",
+    "PROCESSOR_ARCHITECTURE": "AMD64",
+    "PROCESSOR_IDENTIFIER": "Intel64 Family 6 Model 60 Stepping 3, GenuineIntel",
+    "PROCESSOR_LEVEL": "6",
+    "PROCESSOR_REVISION": "3c03",
+    "ProgramData": "C:\\ProgramData",
+    "ProgramFiles": "C:\\Program Files",
+    "ProgramFiles(x86)": "C:\\Program Files (x86)",
+    "ProgramW6432": "C:\\Program Files",
+    "PSModulePath": "C:\\Users\\Administrator\\Documents\\WindowsPowerShell\\Modules;C:\\Program Files\\WindowsPowerShell\\Modules;C:\\WINDOWS\\system32\\WindowsPowerShell\\v1.0\\Modules",
+    "PUBLIC": "C:\\Users\\Public",
+    "SESSIONNAME": "Console",
+    "STACK_ROOT": "C:\\sr",
+    "SystemDrive": "C:",
+    "SystemRoot": "C:\\WINDOWS",
+    "TEMP": "C:\\Users\\ADMINI~1\\AppData\\Local\\Temp",
+    "TMP": "C:\\Users\\ADMINI~1\\AppData\\Local\\Temp",
+    "USERDOMAIN": "DESKTOP-M7F1UQO",
+    "USERDOMAIN_ROAMINGPROFILE": "DESKTOP-M7F1UQO",
+    "USERNAME": "Administrator",
+    "USERPROFILE": "C:\\Users\\Administrator",
+    "VBOX_MSI_INSTALL_PATH": "C:\\Program Files\\Oracle\\VirtualBox\\",
+    "VS140COMNTOOLS": "C:\\Program Files (x86)\\Microsoft Visual Studio 14.0\\Common7\\Tools\\",
+    "windir": "C:\\WINDOWS",
+    "TERM_PROGRAM": "vscode",
+    "TERM_PROGRAM_VERSION": "1.36.1",
+    "LANG": "zh_CN.UTF-8"
+  },
+  "sharedObjects": [
+    "C:\\Program Files\\nodejs\\node.exe",
+    "C:\\WINDOWS\\SYSTEM32\\ntdll.dll",
+    "C:\\WINDOWS\\System32\\KERNEL32.DLL",
+    "C:\\WINDOWS\\System32\\KERNELBASE.dll",
+    "C:\\WINDOWS\\System32\\WS2_32.dll",
+    "C:\\WINDOWS\\System32\\RPCRT4.dll",
+    "C:\\WINDOWS\\SYSTEM32\\dbghelp.dll",
+    "C:\\WINDOWS\\System32\\ADVAPI32.dll",
+    "C:\\WINDOWS\\System32\\msvcrt.dll",
+    "C:\\WINDOWS\\System32\\ucrtbase.dll",
+    "C:\\WINDOWS\\System32\\sechost.dll",
+    "C:\\WINDOWS\\System32\\USER32.dll",
+    "C:\\WINDOWS\\System32\\win32u.dll",
+    "C:\\WINDOWS\\System32\\GDI32.dll",
+    "C:\\WINDOWS\\System32\\gdi32full.dll",
+    "C:\\WINDOWS\\System32\\msvcp_win.dll",
+    "C:\\WINDOWS\\System32\\PSAPI.DLL",
+    "C:\\WINDOWS\\System32\\CRYPT32.dll",
+    "C:\\WINDOWS\\System32\\MSASN1.dll",
+    "C:\\WINDOWS\\System32\\bcrypt.dll",
+    "C:\\WINDOWS\\SYSTEM32\\IPHLPAPI.DLL",
+    "C:\\WINDOWS\\SYSTEM32\\USERENV.dll",
+    "C:\\WINDOWS\\System32\\profapi.dll",
+    "C:\\WINDOWS\\SYSTEM32\\WINMM.dll",
+    "C:\\WINDOWS\\SYSTEM32\\winmmbase.dll",
+    "C:\\WINDOWS\\System32\\cfgmgr32.dll",
+    "C:\\WINDOWS\\System32\\bcryptPrimitives.dll",
+    "C:\\WINDOWS\\System32\\IMM32.DLL",
+    "C:\\WINDOWS\\System32\\powrprof.dll",
+    "C:\\WINDOWS\\System32\\UMPDC.dll",
+    "C:\\WINDOWS\\system32\\uxtheme.dll",
+    "C:\\WINDOWS\\System32\\combase.dll",
+    "C:\\WINDOWS\\system32\\mswsock.dll",
+    "C:\\WINDOWS\\System32\\kernel.appcore.dll",
+    "C:\\WINDOWS\\system32\\napinsp.dll",
+    "C:\\WINDOWS\\system32\\pnrpnsp.dll",
+    "C:\\WINDOWS\\SYSTEM32\\DNSAPI.dll",
+    "C:\\WINDOWS\\System32\\NSI.dll",
+    "C:\\WINDOWS\\System32\\winrnr.dll",
+    "C:\\WINDOWS\\system32\\NLAapi.dll",
+    "C:\\WINDOWS\\system32\\wshbth.dll"
+  ]
+}

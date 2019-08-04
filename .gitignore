@@ -7,3 +7,6 @@
 
 # ignore node_modules
 yarn.lock
+
+# ignore vscode's cofiguration
+.vscode

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Glsl Editor</title>
+    <link
+      type="text/css"
+      rel="stylesheet"
+      href="https://rawgit.com/patriciogonzalezvivo/glslEditor/gh-pages/build/glslEditor.css"
+    />
+    <script
+      type="application/javascript"
+      src="https://rawgit.com/patriciogonzalezvivo/glslEditor/gh-pages/build/glslEditor.js"
+    ></script>
+    <style>
+      html,
+      body {
+        padding: 0;
+        margin: 0;
+      }
+
+      html {
+        background: #272823;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="glsl_editor"></div>
+    <script type="text/javascript">
+      const glslEditor = new GlslEditor('#glsl_editor', {
+        canvas_size: 420,
+        canvas_draggable: true,
+        theme: 'monokai',
+        multipleBuffers: true,
+        watchHash: true,
+        fileDrops: true,
+        menu: true,
+      });
+    </script>
+  </body>
+</html>

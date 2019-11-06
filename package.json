@@ -25,6 +25,6 @@
     "live-server": "^1.2.1"
   },
   "dependencies": {
-    "eslint": "4.18.2"
+    "eslint": "^4.18.2"
   }
 }

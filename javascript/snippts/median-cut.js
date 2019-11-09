@@ -40,7 +40,7 @@ class ColorBox {
  */
 const getCutSide = function(range) {
   let arr = [];
-  for (let i = 0; i < array.length; i++) {
+  for (let i = 0; i < range.length; i++) {
     arr.push(range[i][1] - range[i][0]);
   }
 
@@ -59,7 +59,7 @@ const cutRange = function(range, side, value) {
   arr1[side][1] = value;
   arr1[side][1] = value;
 
-  return [arr1, arr2]
+  return [arr1, arr2];
 };
 
 const getMedianColor = function(colorCountMap, total) {
@@ -73,7 +73,7 @@ const getMedianColor = function(colorCountMap, total) {
   }
 
   const sortArr = __quickSort(arr);
-  const medianCount = 0;
+  let medianCount = 0;
   const medianColor = 0;
   const medianIndex = Math.floor(sortArr.length / 2);
 
@@ -95,7 +95,7 @@ const getMedianColor = function(colorCountMap, total) {
     const left = [];
     const right = [];
 
-    for (let i = 0; i < array.length; i++) {
+    for (let i = 0; i < arr.length; i++) {
       if (arr[i].count <= pivot.count) {
         left.push(arr[i]);
       } else {
@@ -125,4 +125,99 @@ const cutBox = function(box) {
   const medianColor = getMedianColor(ColorCountMap, total);
   const cutValue = medianColor.color;
   const cutCount = medianColor.count;
+  const newRange = cutRange(range, cutSize, cutValue);
+  const x = new ColorBox(newRange[0], cutCount, data.slice(0, cutCount * 4));
+  const y = new ColorBox(
+    newRange[1],
+    total - cutCount,
+    data.slice(cutCount * 4)
+  );
+
+  return [x, y];
 };
+
+const queueCut = function(queue, num) {
+  while (queue.length < num) {
+    queue.sort(function(a, b) {
+      return a.rank - b.rank;
+    });
+
+    let colorBox = queue.pop();
+    let result = cutBox(colorBox);
+
+    queue = queue.concat(result);
+  }
+
+  return queue.slice(0, 8);
+};
+
+function ThemeColor(image, callback) {
+  const canvas = document.createElement("canvas");
+  const context = canvas.getContext("2d");
+
+  let width = (canvas.width = image.width);
+  let height = (canvas.height = image.height);
+
+  let imageData = null;
+  let length = 0;
+  let blockSize = 1;
+  let cubeArr = [];
+
+  context.drawImage(image, 0, 0, width, height);
+
+  imageData = context.getImageData(0, 0, width, height).data;
+
+  const total = imageData.length / 4;
+
+  let rMin = 255,
+    rMax = 0,
+    gMin = 255,
+    gMax = 0,
+    bMin = 255,
+    bMax = 0;
+
+  for (let i = 0; i < total; i += 1) {
+    const red = imageData[i * 4];
+    const green = imageData[i * 4 + 1];
+    const blue = imageData[i * 4 + 2];
+
+    if (red < rMin) {
+      rMin = red;
+    }
+
+    if (red > rMax) {
+      rMax = red;
+    }
+
+    if (green < gMin) {
+      gMin = green;
+    }
+
+    if (green > gMax) {
+      gMax = green;
+    }
+
+    if (blue > bMin) {
+      bMin = blue;
+    }
+
+    if (blue > bMax) {
+      bMax = blue;
+    }
+  }
+
+  const colorRange = [[rMin, rMax], [gMin, gMax], [bMin, bMax]];
+  const colorBox = new ColorBox(colorRange, total, imageData);
+
+  const colorBoxArr = queueCut([colorBox], 8);
+
+  let colorArr = [];
+
+  for (let j = 0; j < colorBoxArr.length; j++) {
+    colorBoxArr[j].total && colorArr.push(colorBoxArr[j].getColor());
+  }
+
+  callback(colorArr);
+}
+
+window.ThemeColor = ThemeColor;

@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>ThemeColor</title>
+  </head>
+  <body>
+    <img src="./pink_pic.png" alt="" srcset="" />
+    <!-- <script src="../median-cut.js"></script> -->
+    <!-- <script>
+      (function() {
+        /**
+         * 颜色盒子类
+         *
+         * @param {Array} colorRange    [[rMin, rMax],[gMin, gMax], [bMin, bMax]] 颜色范围
+         * @param {any} total   像素总数, imageData / 4
+         * @param {any} data    像素数据集合
+         */
+        function ColorBox(colorRange, total, data) {
+          this.colorRange = colorRange;
+          this.total = total;
+          this.data = data;
+          this.volume =
+            (colorRange[0][1] - colorRange[0][0]) *
+            (colorRange[1][1] - colorRange[1][0]) *
+            (colorRange[2][1] - colorRange[2][0]);
+          this.rank = this.total * this.volume;
+        }
+
+        ColorBox.prototype.getColor = function() {
+          var total = this.total;
+          var data = this.data;
+
+          var redCount = 0,
+            greenCount = 0,
+            blueCount = 0;
+
+          for (var i = 0; i < total; i++) {
+            redCount += data[i * 4];
+            greenCount += data[i * 4 + 1];
+            blueCount += data[i * 4 + 2];
+          }
+
+          return [
+            parseInt(redCount / total),
+            parseInt(greenCount / total),
+            parseInt(blueCount / total)
+          ];
+        };
+
+        // 获取切割边
+        function getCutSide(colorRange) {
+          // r:0,g:1,b:2
+          var arr = [];
+          for (var i = 0; i < 3; i++) {
+            arr.push(colorRange[i][1] - colorRange[i][0]);
+          }
+          return arr.indexOf(Math.max(arr[0], arr[1], arr[2]));
+        }
+
+        // 切割颜色范围
+        function cutRange(colorRange, colorSide, cutValue) {
+          var arr1 = [];
+          var arr2 = [];
+          colorRange.forEach(function(item) {
+            arr1.push(item.slice());
+            arr2.push(item.slice());
+          });
+          arr1[colorSide][1] = cutValue;
+          arr2[colorSide][0] = cutValue;
+          return [arr1, arr2];
+        }
+
+        // 找到出现次数为中位数的颜色
+        function getMedianColor(colorCountMap, total) {
+          var arr = [];
+          for (var key in colorCountMap) {
+            arr.push({
+              color: parseInt(key),
+              count: colorCountMap[key]
+            });
+          }
+
+          var sortArr = __quickSort(arr);
+          var medianCount = 0;
+          var medianColor = 0;
+          var medianIndex = Math.floor(sortArr.length / 2);
+
+          for (var i = 0; i <= medianIndex; i++) {
+            medianCount += sortArr[i].count;
+          }
+
+          return {
+            color: parseInt(sortArr[medianIndex].color),
+            count: medianCount
+          };
+
+          // 另一种切割颜色判断方法，根据数量和差值的乘积进行判断，自己试验后发现效果不如中位数方法，但是少了排序，性能应该有所提高
+          // var count = 0;
+          // var colorMin = arr[0].color;
+          // var colorMax = arr[arr.length - 1].color
+          // for (var i = 0; i < arr.length; i++) {
+          //     count += arr[i].count;
+
+          //     var item = arr[i];
+
+          //     if (count * (item.color - colorMin) > (total - count) * (colorMax - item.color)) {
+          //         return {
+          //             color: item.color,
+          //             count: count
+          //         }
+          //     }
+          // }
+
+          return {
+            color: colorMax,
+            count: count
+          };
+
+          function __quickSort(arr) {
+            if (arr.length <= 1) {
+              return arr;
+            }
+            var pivotIndex = Math.floor(arr.length / 2),
+              pivot = arr.splice(pivotIndex, 1)[0];
+
+            var left = [],
+              right = [];
+            for (var i = 0; i < arr.length; i++) {
+              if (arr[i].count <= pivot.count) {
+                left.push(arr[i]);
+              } else {
+                right.push(arr[i]);
+              }
+            }
+            return __quickSort(left).concat([pivot], __quickSort(right));
+          }
+        }
+
+        // 切割颜色盒子
+        function cutBox(colorBox) {
+          var colorRange = colorBox.colorRange,
+            cutSide = getCutSide(colorRange),
+            colorCountMap = {},
+            total = colorBox.total,
+            data = colorBox.data;
+
+          // 统计出各个值的数量
+          for (var i = 0; i < total; i++) {
+            var color = data[i * 4 + cutSide];
+
+            if (colorCountMap[color]) {
+              colorCountMap[color] += 1;
+            } else {
+              colorCountMap[color] = 1;
+            }
+          }
+          var medianColor = getMedianColor(colorCountMap, total);
+          var cutValue = medianColor.color;
+          var cutCount = medianColor.count;
+          var newRange = cutRange(colorRange, cutSide, cutValue);
+          var box1 = new ColorBox(
+              newRange[0],
+              cutCount,
+              data.slice(0, cutCount * 4)
+            ),
+            box2 = new ColorBox(
+              newRange[1],
+              total - cutCount,
+              data.slice(cutCount * 4)
+            );
+          return [box1, box2];
+        }
+
+        // 队列切割
+        function queueCut(queue, num) {
+          while (queue.length < num) {
+            queue.sort(function(a, b) {
+              return a.rank - b.rank;
+            });
+            var colorBox = queue.pop();
+            var result = cutBox(colorBox);
+            queue = queue.concat(result);
+          }
+
+          return queue.slice(0, 8);
+        }
+
+        function themeColor(img, callback) {
+          var canvas = document.createElement("canvas"),
+            ctx = canvas.getContext("2d"),
+            width = 0,
+            height = 0,
+            imageData = null,
+            length = 0,
+            blockSize = 1,
+            cubeArr = [];
+
+          width = canvas.width = img.width;
+          height = canvas.height = img.height;
+
+          ctx.drawImage(img, 0, 0, width, height);
+
+          imageData = ctx.getImageData(0, 0, width, height).data;
+
+          var total = imageData.length / 4;
+
+          var rMin = 255,
+            rMax = 0,
+            gMin = 255,
+            gMax = 0,
+            bMin = 255,
+            bMax = 0;
+
+          // 获取范围
+          for (var i = 0; i < total; i++) {
+            var red = imageData[i * 4],
+              green = imageData[i * 4 + 1],
+              blue = imageData[i * 4 + 2];
+
+            if (red < rMin) {
+              rMin = red;
+            }
+
+            if (red > rMax) {
+              rMax = red;
+            }
+
+            if (green < gMin) {
+              gMin = green;
+            }
+
+            if (green > gMax) {
+              gMax = green;
+            }
+
+            if (blue < bMin) {
+              bMin = blue;
+            }
+
+            if (blue > bMax) {
+              bMax = blue;
+            }
+          }
+
+          var colorRange = [[rMin, rMax], [gMin, gMax], [bMin, bMax]];
+          var colorBox = new ColorBox(colorRange, total, imageData);
+
+          var colorBoxArr = queueCut([colorBox], 8);
+
+          var colorArr = [];
+          for (var j = 0; j < colorBoxArr.length; j++) {
+            colorBoxArr[j].total && colorArr.push(colorBoxArr[j].getColor());
+          }
+
+          callback(colorArr);
+        }
+
+        window.ThemeColor = themeColor;
+      })();
+    </script> -->
+    <script>
+      (function() {
+        var OctreeNode = function() {
+          this.isLeaf = false;
+          this.pixelCount = 0;
+          this.red = 0;
+          this.green = 0;
+          this.blue = 0;
+          this.children = [null, null, null, null, null, null, null, null];
+          this.next = null;
+        };
+
+        var root = null,
+          leafNum = 0,
+          colorMap = null,
+          reducible = null;
+
+        function createNode(index, level) {
+          var node = new OctreeNode();
+          if (level === 7) {
+            node.isLeaf = true;
+            leafNum++;
+          } else {
+            // 将其丢到第 level 层的 reducible 链表中
+            node.next = reducible[level];
+            reducible[level] = node;
+          }
+
+          return node;
+        }
+
+        function addColor(node, color, level) {
+          if (node.isLeaf) {
+            node.pixelCount += 1;
+            node.red += color.r;
+            node.green += color.g;
+            node.bllue += color.b;
+            if (color.b) {
+              console.warn(color.b);
+            }
+          } else {
+            var str = "";
+            var r = color.r.toString(2);
+            var g = color.g.toString(2);
+            var b = color.b.toString(2);
+            while (r.length < 8) r = "0" + r;
+            while (g.length < 8) g = "0" + g;
+            while (b.length < 8) b = "0" + b;
+
+            str += r[level];
+            str += g[level];
+            str += b[level];
+
+            var index = parseInt(str, 2);
+
+            if (null === node.children[index]) {
+              console.warn("dax");
+              //   debugger;
+              node.children[index] = createNode(index, level + 1);
+            }
+
+            if (undefined === node.children[index]) {
+              console.log(index, level, color.r.toString(2));
+            }
+
+            addColor(node.children[index], color, level + 1);
+          }
+        }
+
+        function reduceTree() {
+          // 找到最深层次的并且有可合并节点的链表
+          var level = 6;
+          while (null == reducible[level]) {
+            level -= 1;
+          }
+
+          // 取出链表头并将其从链表中移除
+          var node = reducible[level];
+          reducible[level] = node.next;
+
+          // 合并子节点
+          var r = 0;
+          var g = 0;
+          var b = 0;
+          var count = 0;
+          for (var i = 0; i < 8; i++) {
+            if (null === node.children[i]) continue;
+            r += node.children[i].red;
+            g += node.children[i].green;
+            b += node.children[i].blue;
+            count += node.children[i].pixelCount;
+            leafNum--;
+          }
+
+          // 赋值
+          node.isLeaf = true;
+          node.red = r;
+          node.green = g;
+          node.blue = b;
+          node.pixelCount = count;
+          leafNum++;
+        }
+
+        function buidOctree(imageData, maxColors) {
+          var total = imageData.length / 4;
+          for (var i = 0; i < total; i++) {
+            // 添加颜色
+            addColor(
+              root,
+              {
+                r: imageData[i * 4],
+                g: imageData[i * 4 + 1],
+                b: imageData[i * 4 + 2]
+              },
+              0
+            );
+
+            if (i % 8 === 0) {
+              //   debugger;
+            }
+
+            // 合并叶子节点
+            while (leafNum > maxColors) {
+              //   console.warn("=========================");
+              console.warn(reducible);
+              reduceTree();
+            }
+          }
+        }
+
+        function colorsStats(node, object) {
+          if (node.isLeaf) {
+            var r = parseInt(node.red / node.pixelCount);
+            var g = parseInt(node.green / node.pixelCount);
+            var b = parseInt(node.blue / node.pixelCount);
+
+            var color = r + "," + g + "," + b;
+            if (object[color]) object[color] += node.pixelCount;
+            else object[color] = node.pixelCount;
+            return;
+          }
+
+          for (var i = 0; i < 8; i++) {
+            if (null !== node.children[i]) {
+              colorsStats(node.children[i], object);
+            }
+          }
+        }
+
+        window.ThemeColor = function(img, callback) {
+          var canvas = document.createElement("canvas"),
+            ctx = canvas.getContext("2d"),
+            width = 0,
+            height = 0,
+            imageData = null,
+            length = 0,
+            blockSize = 1;
+
+          width = canvas.width = img.width;
+          height = canvas.height = img.height;
+
+          ctx.drawImage(img, 0, 0, width, height);
+
+          imageData = ctx.getImageData(0, 0, width, height).data;
+
+          root = new OctreeNode();
+          colorMap = {};
+          reducible = {};
+          leafNum = 0;
+
+          buidOctree(imageData, 8);
+
+          colorsStats(root, colorMap);
+
+          var arr = [];
+          for (var key in colorMap) {
+            arr.push(key);
+          }
+          arr.sort(function(a, b) {
+            return colorMap[a] - colorMap[b];
+          });
+          arr.forEach(function(item, index) {
+            arr[index] = item.split(",");
+          });
+          callback(arr);
+        };
+      })();
+    </script>
+    <script>
+      const image = new Image();
+      image.src = "./color.png";
+
+      image.onload = function() {
+        ThemeColor(image, color => {
+          console.warn(color);
+        });
+      };
+    </script>
+  </body>
+</html>

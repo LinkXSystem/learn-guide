@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+    <style>
+      html,
+      body,
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      html,
+      body {
+        overflow: hidden;
+      }
+      .box {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100vw;
+        height: 100vh;
+        font-size: 30px;
+        color: rgba(200, 200, 200, 0.5);
+        padding: 1em;
+        margin-bottom: 0.25em;
+        transition: 0.3s color, 0.3s border;
+        background: #1e1e1e;
+      }
+      .container {
+        position: relative;
+        width: 0.5em;
+        height: 0.5em;
+        background: #ffffff;
+        border-radius: 50%;
+      }
+      .container:after,
+      .container:before {
+        content: '';
+        position: absolute;
+        width: 0.5em;
+        height: 0.5em;
+        border-radius: 50%;
+        opacity: 0.8;
+      }
+      .container:after {
+        left: -2em;
+        top: -1em;
+        background-color: currentcolor;
+        transform-origin: 4em 1em;
+        animation: container 1s linear infinite;
+        opacity: 0.6;
+        background: rebeccapurple !important;
+      }
+      .container:before {
+        left: -10em;
+        top: -4em;
+        background-color: currentcolor;
+        transform-origin: 5em 0em;
+        animation: container 2s linear infinite;
+        background: snow !important;
+      }
+      @keyframes container {
+        0% {
+          transform: rotateZ(0deg) translate3d(0, 0, 0);
+        }
+        100% {
+          transform: rotateZ(360deg) translate3d(0, 0, 0);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="box">
+      <div class="container"></div>
+    </div>
+  </body>
+</html>

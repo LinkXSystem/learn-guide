@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+    <style>
+      html,
+      body,
+      * {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        width: 100vw;
+        height: 100vh;
+      }
+
+      .filter {
+        /* 模糊 */
+        /* filter: blur(5px); */
+        /* 灰度 */
+        /* filter: grayscale(100%); */
+        /* 对比度 */
+        /* filter: contrast(10%); */
+        /* filter：drop-shadow(16px 16px 10px black); */
+        /* 色相旋转 */
+        /* filter: hue-rotate(90deg); */
+        /* 深褐色转换 */
+        /* filter: sepia(100%); */
+        /* 图像饱和度 */
+        /* filter: saturate(200%); */
+        /* 控制透明度 */
+        /* filter: opacity(50%); */
+        /* 反转 */
+        /* filter: invert(100%); */
+        /* 亮度 */
+        filter: brightness(200%);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="filter">
+      <img
+        src="https://interactive-examples.mdn.mozilla.net/media/examples/firefox-logo.svg"
+        alt=""
+      />
+    </div>
+  </body>
+</html>

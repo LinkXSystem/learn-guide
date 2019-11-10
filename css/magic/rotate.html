@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+    <style>
+      html,
+      body,
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      html,
+      body {
+        overflow: hidden;
+      }
+      .container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100vw;
+        height: 100vh;
+      }
+      .anchor {
+        position: relative;
+        width: 10em;
+        height: 10em;
+        border-radius: 50%;
+        border: 1px solid #b2b2b2;
+      }
+      .box {
+        position: absolute;
+        width: 2em;
+        height: 2em;
+        background: #1e1e1e;
+        top: 4em;
+        left: 4em;
+        border-radius: 50%;
+        /* x-offset | y-offset | z-offset */
+        /* transform-origin: 6em 1em 0em; */
+      }
+      .box:nth-child(1) {
+        left: -1em;
+        top: 4em;
+        transform-origin: 6em 1em 0em;
+        animation: surround 5s linear 0s infinite;
+      }
+
+      .box:nth-child(2) {
+        left: -6em;
+        top: 4em;
+        transform-origin: 11em 1em 0em;
+        animation: surround 3s linear 0s infinite;
+      }
+
+      .box:nth-child(3) {
+        left: -11em;
+        top: 4em;
+        transform-origin: 16em 1em 0em;
+        animation: surround 4s linear 0s infinite;
+      }
+
+      .box:nth-child(4) {
+        left: -16em;
+        top: 4em;
+        transform-origin: 21em 1em 0em;
+        animation: surround 6s linear 0s infinite;
+      }
+
+      .box:nth-child(5) {
+        left: -21em;
+        top: 4em;
+        transform-origin: 26em 1em 0em;
+        animation: surround 8s linear 0s infinite;
+      }
+
+      .box:nth-child(6) {
+        left: -26em;
+        top: 4em;
+        transform-origin: 31em 1em 0em;
+        animation: surround 10s linear 0s infinite;
+      }
+
+      @keyframes surround {
+        0% {
+          transform: rotate(0deg);
+        }
+
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="anchor">
+        <div class="box"></div>
+        <div class="box"></div>
+        <div class="box"></div>
+        <div class="box"></div>
+        <div class="box"></div>
+        <div class="box"></div>
+      </div>
+    </div>
+  </body>
+</html>

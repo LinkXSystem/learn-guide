@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>D3</title>
+    <script src="https://cdn.bootcss.com/d3/5.9.2/d3.js"></script>
+    <script src="assets/js/colorbrewer.js"></script>
+    <style>
+      html,
+      body {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        height: 100vh;
+      }
+    </style>
+    <style>
+      svg {
+        height: 500px;
+        width: 500px;
+        border: 1px solid gray;
+      }
+    </style>
+  </head>
+  <body>
+    <svg></svg>
+    <script>
+      const ScatterData = [
+        { friends: 5, salary: 22000 },
+        { friends: 3, salary: 18000 },
+        { friends: 10, salary: 88000 },
+        { friends: 0, salary: 180000 },
+        { friends: 27, salary: 56000 },
+        { friends: 8, salary: 74000 },
+      ];
+
+      const XExtent = d3.extent(ScatterData, function(item) {
+        return item.salary;
+      });
+      const YExtent = d3.extent(ScatterData, function(item) {
+        return item.friends;
+      });
+
+      console.log(XExtent, YExtent);
+
+      const XScale = d3
+        .scaleLinear()
+        .domain(XExtent)
+        .range([0, 500]);
+      const YScale = d3
+        .scaleLinear()
+        .domain(YExtent)
+        .range([0, 500]);
+
+      d3.select('svg')
+        .selectAll('circle')
+        .data(ScatterData)
+        .enter()
+        .append('circle')
+        .attr('r', 5)
+        .attr('cx', function(item) {
+          return XScale(item.salary);
+        })
+        .attr('cy', function(item) {
+          return YScale(item.friends);
+        });
+
+      const XAxis = d3.axisBottom(XScale);
+      const YAxis = d3.axisRight(YScale);
+
+      d3.select('svg')
+        .append('g')
+        .attr('id', 'xAxisG')
+        .call(XAxis);
+      d3.select('svg')
+        .append('g')
+        .attr('id', 'yAxisG')
+        .call(YAxis);
+
+      d3.selectAll('path.domain')
+        .style('fill', 'none')
+        .style('stroke', 'black');
+
+      d3.selectAll('line').style('stroke', 'block');
+    </script>
+  </body>
+</html>

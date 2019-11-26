@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>D3</title>
+    <script src="https://cdn.bootcss.com/d3/5.9.2/d3.js"></script>
+    <script src="assets/js/colorbrewer.js"></script>
+    <style>
+      html,
+      body {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        height: 100vh;
+      }
+    </style>
+    <style>
+      svg {
+        height: 500px;
+        width: 500px;
+        border: 1px solid gray;
+      }
+    </style>
+  </head>
+  <body>
+    <svg></svg>
+    <script>
+      async function render() {
+        const data = await d3.csv('./assets/data/tweetdata.csv');
+
+        const XScale = d3
+          .scaleLinear()
+          .domain([1, 10])
+          .range([20, 480]);
+
+        const YScale = d3
+          .scaleLinear()
+          .domain([0, 35])
+          .range([480, 20]);
+
+        const XAxis = d3
+          .axisBottom()
+          .tickSize(480)
+          .tickValues([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
+
+        const YAxis = d3
+          .axisRight()
+          .ticks(10)
+          .tickSize(480)
+          .remove()
+          .tickSubdivide(true);
+
+        d3.select('svg')
+          .append('g')
+          .attr('id', 'xAxisG')
+          .call(XAxis);
+
+        d3.select('svg')
+          .append('g')
+          .attr('id', 'yAxisG')
+          .call(YAxis);
+
+        d3.select('svg')
+          .selectAll('circle.tweets')
+          .data(data)
+          .enter()
+          .append('circle')
+          .attr('class', 'tweets')
+          .attr('r', 5)
+          .attr('cx', function(item) {
+            return XScale(item.day);
+          })
+          .attr('cy', function(item) {
+            return YScale(item.tweets);
+          })
+          .style('fill', 'black');
+      }
+
+      render();
+    </script>
+  </body>
+</html>

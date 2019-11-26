@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>D3</title>
+    <script src="https://cdn.bootcss.com/d3/5.9.2/d3.js"></script>
+  </head>
+  <body>
+    <canvas width="960" height="500"></canvas>
+    <script>
+      const canvas = document.querySelector('canvas');
+      const context = canvas.getContext('2d');
+
+      const width = canvas.width,
+        height = canvas.height,
+        radius = Math.min(width, height) / 2;
+
+      const colors = [
+        '#98abc5',
+        '#8a89a6',
+        '#7b6888',
+        '#6b486b',
+        '#a05d56',
+        '#d0743c',
+        '#ff8c00',
+      ];
+
+      const arc = d3
+        .arc()
+        .cornerRadius(4)
+        .outerRadius(data => {
+          return Math.floor(Math.random() * radius + 40) - 10;
+        })
+        .innerRadius(10)
+        .padAngle(0.02)
+        .context(context);
+
+      const pie = d3
+        .pie()
+        .sort(null)
+        .value(function(d) {
+          return d.population;
+        });
+
+      context.translate(width / 2, height / 2);
+
+      d3.tsv('assets/data/pie.tsv', function(data) {
+        data.population = +data.population;
+        return data;
+      }).then(function(data) {
+        // if (error) throw error;
+
+        let arcs = pie(data);
+        arcs.forEach((data, i) => {
+          context.beginPath();
+          arc(data);
+          context.fillStyle = colors[i];
+          context.fill();
+        });
+      });
+    </script>
+  </body>
+</html>

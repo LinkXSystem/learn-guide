@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>D3</title>
+    <script src="https://cdn.bootcss.com/d3/5.9.2/d3.js"></script>
+    <style>
+      html,
+      body {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        height: 100vh;
+      }
+    </style>
+  </head>
+  <body>
+    <script>
+      let now = d3.timeYear.floor(new Date());
+
+      const SpaceTime = d3.select('body');
+
+      const width = 960,
+        height = 500,
+        radius = Math.min(width, height);
+
+      const radii = {
+        sun: radius / 8,
+        earthOrbit: radius / 2.5,
+        earth: radius / 32,
+        moonOrbit: radius / 16,
+        moon: radius / 96,
+      };
+
+      const svg = SpaceTime.append('svg')
+        .attr('width', width)
+        .attr('height', height)
+        .append('g')
+        .attr('transform', `translate(${width / 2}, ${height / 2})`);
+
+      svg
+        .append('circle')
+        .attr('class', 'sun')
+        .attr('r', radii.sun)
+        .style('fill', 'rgba(255, 204, 0, 1.0)');
+
+      svg
+        .append('circle')
+        .attr('class', 'earthOrbit')
+        .attr('r', radii.earthOrbit)
+        .style('fill', 'none')
+        .style('stroke', 'rgba(255, 244, 0, 0.25)');
+
+      const earthOrbitPosition = d3
+        .arc()
+        .outerRadius(radii.earthOrbit + 1)
+        .innerRadius(radii.earthOrbit - 1)
+        .startAngle(0)
+        .endAngle(0);
+
+      svg
+        .append('path')
+        .attr('class', 'earthOrbitPosition')
+        .attr('d', earthOrbitPosition)
+        .style('fill', 'rgba(255, 244, 0, 0.75)');
+
+      svg
+        .append('circle')
+        .attr('class', 'earth')
+        .attr('r', radii.earth)
+        .attr('transform', `translate(0, ${-radii.earthOrbit})`)
+        .style('fill', 'rgba(113, 170,255, 1.0)');
+
+      const day = d3
+        .arc()
+        .outerRadius(radii.earth)
+        .innerRadius(0)
+        .startAngle(0)
+        .endAngle(0);
+
+      svg
+        .append('path')
+        .attr('class', 'day')
+        .attr('d', day)
+        .attr('transform', `translate(0, ${-radii.earthOrbit})`)
+        .style('fill', 'rgba(53, 110, 195, 1.0)');
+
+      svg
+        .append('circle')
+        .attr('class', 'moonOrbit')
+        .attr('r', radii.moonOrbit)
+        .attr('transform', `translate(0, ${-radii.earthOrbit})`)
+        .style('fill', 'none')
+        .style('stroke', 'rgba(113, 170, 255, 0.25)');
+
+      const moonOrbitPosition = d3
+        .arc()
+        .outerRadius(radii.moonOrbit + 1)
+        .innerRadius(radii.moonOrbit - 1)
+        .startAngle(0)
+        .endAngle(0);
+
+      svg
+        .append('path')
+        .attr('class', 'moonOrbitPosition')
+        .attr('d', moonOrbitPosition)
+        .attr('transform', `translate(0, ${-radii.earthOrbit})`)
+        .style('fill', 'rgba(113, 170, 255, 0.75)');
+
+      svg
+        .append('circle')
+        .attr('class', 'moon')
+        .attr('r', radii.moon)
+        .attr(
+          'transform',
+          `translate(0, ${-radii.earthOrbit + radii.moonOrbit})`,
+        )
+        .style('fill', 'rgba(150, 150, 150, 1.0)');
+
+      const timer = setInterval(function() {
+        now = new Date();
+
+        let interpolateEarthOrbitPosition = d3.interpolate(
+          earthOrbitPosition.endAngle()(),
+          (2 * Math.PI * d3.timeHours(d3.timeYear.floor(now), now).length) /
+            d3.timeHours(d3.timeYear.floor(now), d3.timeYear.ceil(now)).length,
+        );
+
+        let interpolateDay = d3.interpolate(
+          day.endAngle()(),
+          (2 * Math.PI * d3.timeSeconds(d3.timeDay.floor(now), now).length) /
+            d3.timeSeconds(d3.timeDay.floor(now), d3.timeDay.ceil(now)).length,
+        );
+
+        let interpolateMoonOrbitPosition = d3.interpolate(
+          moonOrbitPosition.endAngle()(),
+          (2 * Math.PI * d3.timeHours(d3.timeMonth.floor(now), now).length) /
+            d3.timeHours(d3.timeMonth.floor(now), d3.timeMonth.ceil(now))
+              .length,
+        );
+
+        d3.transition().tween('orbit', function() {
+          return function(t) {
+            d3.select('.earthOrbitPosition').attr(
+              'd',
+              earthOrbitPosition.endAngle(interpolateEarthOrbitPosition(t)),
+            );
+
+            d3.select('.earth').attr(
+              'transform',
+              `translate(${radii.earthOrbit *
+                Math.sin(
+                  interpolateEarthOrbitPosition(t) -
+                    earthOrbitPosition.startAngle()(),
+                )}, ${-radii.earthOrbit *
+                Math.cos(
+                  interpolateEarthOrbitPosition(t) -
+                    earthOrbitPosition.startAngle()(),
+                )})`,
+            );
+
+            d3.select('.day')
+              .attr('d', day.endAngle(interpolateDay(t)))
+              .attr(
+                'transform',
+                `translate(${radii.earthOrbit *
+                  Math.sin(
+                    interpolateEarthOrbitPosition(t) -
+                      earthOrbitPosition.startAngle()(),
+                  )}, ${-radii.earthOrbit *
+                  Math.cos(
+                    interpolateEarthOrbitPosition(t) -
+                      earthOrbitPosition.startAngle()(),
+                  )})`,
+              );
+
+            d3.select('.moonOrbit').attr(
+              'transform',
+              `translate(${radii.earthOrbit *
+                Math.sin(
+                  interpolateEarthOrbitPosition(t) -
+                    earthOrbitPosition.startAngle()(),
+                )}, ${-radii.earthOrbit *
+                Math.cos(
+                  interpolateEarthOrbitPosition(t) -
+                    earthOrbitPosition.startAngle()(),
+                )})`,
+            );
+
+            d3.select('.moonOrbitPosition')
+              .attr(
+                'd',
+                moonOrbitPosition.endAngle(interpolateMoonOrbitPosition(t)),
+              )
+              .attr(
+                'transform',
+                'translate(' +
+                  radii.earthOrbit *
+                    Math.sin(
+                      interpolateEarthOrbitPosition(t) -
+                        earthOrbitPosition.startAngle()(),
+                    ) +
+                  ',' +
+                  -radii.earthOrbit *
+                    Math.cos(
+                      interpolateEarthOrbitPosition(t) -
+                        earthOrbitPosition.startAngle()(),
+                    ) +
+                  ')',
+              );
+
+            d3.select('.moon').attr(
+              'transform',
+              `translate(${radii.earthOrbit *
+                Math.sin(
+                  interpolateEarthOrbitPosition(t) -
+                    earthOrbitPosition.startAngle()(),
+                ) +
+                radii.moonOrbit *
+                  Math.sin(
+                    interpolateMoonOrbitPosition(t) -
+                      moonOrbitPosition.startAngle()(),
+                  )}, ${-radii.earthOrbit *
+                Math.cos(
+                  interpolateEarthOrbitPosition(t) -
+                    earthOrbitPosition.startAngle()(),
+                ) +
+                -radii.moonOrbit *
+                  Math.cos(
+                    interpolateMoonOrbitPosition(t) -
+                      moonOrbitPosition.startAngle()(),
+                  )})`,
+            );
+          };
+        });
+      }, 1000);
+    </script>
+  </body>
+</html>

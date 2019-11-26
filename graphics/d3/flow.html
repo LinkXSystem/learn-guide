@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>D3</title>
+    <script src="https://cdn.bootcss.com/d3/5.9.2/d3.js"></script>
+    <style>
+      html,
+      body {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        height: 100vh;
+      }
+    </style>
+    <style>
+      svg {
+        height: 500px;
+        width: 500px;
+        border: 1px solid gray;
+      }
+    </style>
+  </head>
+  <body>
+    <svg></svg>
+    <script>
+      d3.json('./assets/data/tweets.json', function(error, data) {
+        console.log(error, data);
+        // dataViz(data.tweets);
+      });
+
+      d3.json('./assets/data/tweets.json').then(function(data) {
+        dataViz(data.tweets);
+      });
+
+      function dataViz(incomingData) {
+        incomingData.forEach(el => {
+          el.impact = el.favorites.length + el.retweets.length;
+          el.tweetTime = new Date(el.timestamp);
+        });
+
+        let maxImpact = d3.max(incomingData, function(el) {
+          return el.impact;
+        });
+
+        let startEnd = d3.extent(incomingData, function(el) {
+          return el.tweetTime;
+        });
+
+        let timeRamp = d3
+          .scaleTime()
+          .domain(startEnd)
+          .range([20, 400]);
+
+        let yScale = d3
+          .scaleLinear()
+          .domain([0, maxImpact])
+          .range([20, 480]);
+
+        let radiusScale = d3
+          .scaleLinear()
+          .domain([0, maxImpact])
+          .range([1, 20]);
+
+        let colorScale = d3
+          .scaleLinear()
+          .domain([0, maxImpact])
+          .range(['#ffffff', '#990000']);
+
+        d3.select('svg')
+          .selectAll('circle')
+          .data(incomingData)
+          .enter()
+          .append('circle')
+          .attr('r', function(d) {
+            return radiusScale(d.impact);
+          })
+          .attr('cx', function(d, i) {
+            return timeRamp(d.tweetTime);
+          })
+          .attr('cy', function(d) {
+            return 480 - yScale(d.impact);
+          })
+          .style('fill', function(d) {
+            return colorScale(d.impact);
+          })
+          .style('stroke', 'black')
+          .style('stroke-width', '1px');
+
+        let tweetG = d3
+          .select('svg')
+          .selectAll('g')
+          .data(incomingData)
+          .enter()
+          .append('g')
+          .attr('transform', function(d) {
+            return (
+              'translate(' +
+              timeRamp(d.tweetTime) +
+              ',' +
+              (480 - yScale(d.impact)) +
+              ')'
+            );
+          });
+
+        tweetG.append('text').text(function(d) {
+          return d.user + '-' + d.tweetTime.getHours();
+        });
+      }
+    </script>
+  </body>
+</html>

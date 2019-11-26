@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>Document</title>
+    <title>Canvas</title>
     <style>
       html,
       body,
@@ -13,31 +13,169 @@
         margin: 0;
         padding: 0;
       }
+
+      html,
+      body {
+        overflow: hidden;
+      }
     </style>
   </head>
   <body>
+    <canvas id="canvas"></canvas>
     <script>
-      function background() {
-        const background = document.createElement('canvas');
+      const canvas = document.getElementById('canvas');
+      canvas.style.background = '#000000';
 
-        background.width = window.innerWidth;
-        background.height = window.innerHeight;
+      const context = canvas.getContext('2d');
 
-        background.style.position = 'absolute';
-        background.style.top = '0px';
-        background.style.left = '0px';
+      const quantity = 1;
 
-        background.style.zIndex = '1001';
-        background.style.pointerEvents;
+      let width = (canvas.width = window.innerWidth);
+      let height = (canvas.height = window.innerHeight);
+      let center = {
+        x: Math.floor(width / 2),
+        y: Math.floor(height / 2),
+      };
+      let angle = 0;
 
-        document.body.appendChild(background);
+      let photons = [];
+
+      class Photon {
+        constructor(context, x, y, radius, color) {
+          this.context = context;
+          this.x = x;
+          this.y = y;
+          this.radius = radius;
+          this.color = color;
+
+          this.arc();
+        }
+
+        update(x, y, radius, color) {
+          this.x = x || this.x;
+          this.y = y || this.y;
+          this.radius = radius || this.radius;
+          this.color = color || this.color;
+
+          // this.arc();
+        }
+
+        arc() {
+          let _radius =
+            Math.pow(Math.abs(Math.floor(this.x - center.x)), 2) +
+            Math.pow(Math.abs(Math.floor(this.y - center.y)), 2);
+
+          this._radius = Math.floor(Math.sqrt(_radius));
+        }
+
+        render() {
+          const { context, x, y, radius, color } = this;
+          context.beginPath();
+          context.arc(x, y, radius, 0, Math.PI * 2, false);
+          context.shadowColor = color;
+          context.shadowBlur = 15;
+          context.shadowOffsetX = 0;
+          context.shadowOffsetY = 0;
+          context.fillStyle = color;
+          context.fill();
+          context.closePath();
+        }
+      }
+
+      function resize(callback) {
+        return () => {
+          width = canvas.width = window.innerWidth;
+          height = canvas.height = window.innerHeight;
+          center = {
+            x: Math.floor(width / 2),
+            y: Math.floor(height / 2),
+          };
+          context.translate(center.x, center.y);
+
+          callback();
+        };
+      }
+
+      function color() {
+        const r = Math.floor(Math.random() * 255).toString(16);
+        const g = Math.floor(Math.random() * 255).toString(16);
+        const b = Math.floor(Math.random() * 255).toString(16);
+        return `#${r}${g}${b}`;
       }
 
       function initial() {
-        background();
+        photons = [];
+
+        for (let i = 0; i < quantity; i++) {
+          // let radius = Math.floor(Math.random() * 20);
+          // let x = Math.floor(Math.random() * width);
+          // let y = Math.floor(Math.random() * height);
+          let radius = 20;
+          let x = width / 2 - 100;
+          let y = height / 2;
+
+          photons.push(new Photon(context, x, y, radius, color()));
+        }
+      }
+
+      function render() {
+        for (let i = 0; i < photons.length; i++) {
+          console.log(photons[i]);
+          photons[i].render();
+        }
+      }
+
+      function animation() {
+        window.requestAnimationFrame(animation);
+        context.clearRect(0, 0, width, height);
+
+        let instance = null;
+        for (let i = 0; i < photons.length; i++) {
+          instance = photons[i];
+
+          const y = Math.sin(angle) * instance._radius;
+          const x = Math.cos(angle) * instance._radius;
+
+          console.log(instance.y, instance.x, y, x, instance._radius);
+
+          instance.update(x, y);
+        }
+        angle += Math.PI / 60;
+        console.log(angle);
+        render();
       }
 
       initial();
+      render();
+      setInterval(() => {
+        context.clearRect(0, 0, width, height);
+
+        let instance = null;
+        for (let i = 0; i < photons.length; i++) {
+          instance = photons[i];
+
+          const y = Math.floor(Math.sin(angle) * 100);
+          const x = Math.floor(Math.cos(angle) * 100);
+
+          console.log(instance.y, instance.x, y, x, instance._radius);
+
+          instance.update(x, y);
+
+          console.log(instance);
+        }
+        angle += Math.PI / 60;
+        console.log(angle);
+        render();
+      }, 1000);
+      // animation();
+
+      // window.addEventListener(
+      //   'resize',
+      //   resize(() => {
+      //     initial();
+      //     animation();
+      //   }),
+      // );
     </script>
   </body>
 </html>

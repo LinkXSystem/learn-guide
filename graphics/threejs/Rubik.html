@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Rubik</title>
+    <link rel="stylesheet" href="main.css" />
+    <script src="https://unpkg.com/three@0.105.1/build/three.js"></script>
+    <script src="https://unpkg.com/three@0.105.1/examples/js/controls/OrbitControls.js"></script>
+  </head>
+  <body>
+    <script>
+      class RubikRenderer {
+        constructor() {
+          this.initRender();
+          this.initCamera();
+          this.initScene();
+          this.initLight();
+          this.initObject();
+          this.initEvent();
+          this.render();
+        }
+
+        initRender() {}
+        initCamera() {}
+        initScene() {}
+        initObject() {}
+        initEvent() {}
+
+        render() {}
+      }
+
+      const instance = new RubikRenderer();
+    </script>
+  </body>
+</html>

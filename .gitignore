@@ -10,3 +10,11 @@ yarn.lock
 
 # ignore vscode's cofiguration
 .vscode
+
+# ignore latex's compile 
+
+latex/**/*.aux
+latex/**/*.log
+latex/**/*.pdf
+latex/**/*.synctex.gz
+latex/**/*.toc

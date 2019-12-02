@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+    <style>
+      html,
+      body,
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        overflow: hidden;
+      }
+    </style>
+  </head>
+  <body>
+    <canvas id="canvas"></canvas>
+    <script type="shader-sourcce" id="vertexShader">
+      void main() {
+          gl_Position = vec4(0.0, 0.0, 0.0, 1.0);
+          gl_PointSize = 10.0;
+      }
+    </script>
+    <script type="shader-sourcce" id="fragmentShader">
+      void main() {
+          gl_FragColor = vec4(1.0, 0.0, 0.0, 1.0);
+      }
+    </script>
+    <script>
+      function CreateVertexShader(gl) {
+        const source = document.getElementById("vertexShader").innerHTML;
+        const shader = gl.createShader(gl.VERTEX_SHADER);
+        gl.shaderSource(shader, source);
+        gl.compileShader(shader);
+
+        return shader;
+      }
+
+      function CreateFragmentShader(gl) {
+        const source = document.getElementById("fragmentShader").innerHTML;
+        const shader = gl.createShader(gl.FRAGMENT_SHADER);
+        gl.shaderSource(shader, source);
+        gl.compileShader(shader);
+
+        return shader;
+      }
+
+      function CreateProgram(gl) {
+        const program = gl.createProgram();
+        const vshader = CreateVertexShader(gl);
+        const fshader = CreateFragmentShader(gl);
+
+        gl.attachShader(program, vshader);
+        gl.attachShader(program, fshader);
+
+        gl.linkProgram(program);
+
+        return program;
+      }
+
+      function InitContext() {
+        const canvas = document.getElementById("canvas");
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        const gl =
+          canvas.getContext("webgl") || canvas.getContext("experimental-webgl");
+
+        return gl;
+      }
+
+      const gl = InitContext();
+      const program = CreateProgram(gl);
+
+      gl.useProgram(program);
+
+      gl.clearColor(0.0, 0.0, 0.0, 1.0);
+
+      gl.clear(gl.COLOR_BUFFER_BIT);
+
+      gl.drawArrays(gl.POINTS, 0, 1);
+    </script>
+  </body>
+</html>

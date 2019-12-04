@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>AR</title>
+    <script src="./assets/js/aframe.min.js"></script>
+    <script src="./assets/js/aframe-ar.js"></script>
+  </head>
+  <body>
+    <a-scene embedded arjs="sourceType: webcam; debugUIEnabled: false;">
+      <a-marker type="pattern" url="./assets/patt/wechat.patt">
+        <a-box position="0 0.5 0" material="color: yellow;"></a-box>
+      </a-marker>
+    </a-scene>
+  </body>
+</html>

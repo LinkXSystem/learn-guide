@@ -1,5 +1,7 @@
 class Runtime {
-  constructor() {}
+  constructor() {
+    this.TaskQueue = [];
+  }
 }
 
-export default Runtime;
+module.exports = Runtime;

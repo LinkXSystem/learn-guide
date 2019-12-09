@@ -1,19 +1,11 @@
-const wait = function(time) {
-  return new Promise((resolve, reject) => {
-    setTimeout(() => {
-      resolve();
-    }, time);
-  });
-};
+const { wait } = require("./utils");
+const { Task } = require("./task");
+
+const { Logger, FontColor, BackgroundColor } = require("./logger");
+
+const logger = Logger.build("fiber");
 
 const TaskQueue = [];
-
-class Task {
-  constructor(time, func) {
-    this.time = time;
-    this.func = func;
-  }
-}
 
 const buildTasks = function(amount) {
   const time = 1000;
@@ -24,7 +16,7 @@ const buildTasks = function(amount) {
     console.log("===============Task===============", Date.now());
   };
 
-  const task = new Task(time, func);
+  const task = new Task({ func });
 
   return new Array(amount).fill(task);
 };
@@ -41,7 +33,7 @@ const updateTask = function() {
 const TimeSlice = 2000;
 const SleepTime = 3000;
 
-(async function Loop() {
+const TaskLoop = async function() {
   updateTask();
 
   let start = Date.now();
@@ -54,13 +46,35 @@ const SleepTime = 3000;
     await task.func();
 
     if (current - start > TimeSlice) {
-      console.log("==============Sleep===============");
-      console.log(Date.now());
-      console.log("==============Sleep===============");
+      // 让出控制权限
+      setTimeout(() => {
+        TaskLoop();
+      }, 0);
 
-      await wait(SleepTime);
-      updateTask();
-      start = Date.now();
+      AnotherLoop();
+
+      break;
     }
   }
+};
+
+const AnotherLoop = function() {
+  for (let i = 0; i < 1000; i++) {
+    if (i === 1) {
+      console.log("=============Another==============");
+      console.log(Date.now(), "Another Start !");
+      console.log("=============Another==============");
+    }
+
+    if (i === 1) {
+      console.log("=============Another==============");
+      console.log(Date.now(), "Another End !!");
+      console.log("=============Another==============");
+    }
+  }
+};
+
+(async function Loop() {
+  TaskLoop();
+  AnotherLoop();
 })();

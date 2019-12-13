@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Audio</title>
+    <style>
+      html,
+      body {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+      }
+
+      #button {
+        width: 5.2em;
+        height: 3em;
+        line-height: 3em;
+        text-align: center;
+        color: #ffffff;
+        background: blue;
+        border-radius: 0.25em;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="button">Play</div>
+
+    <script>
+      window.AudioContext = window.AudioContext || window.webkitAudioContext;
+
+      (function() {
+        if (!window.AudioContext) throw new Error('Not Support !');
+
+        const button = document.querySelector('#button');
+
+        const context = new AudioContext();
+
+        const frequency = [
+          196.0,
+          220.0,
+          246.94,
+          261.63,
+          293.66,
+          329.63,
+          349.23,
+          392.0,
+          440.0,
+          493.88,
+          523.25,
+          587.33,
+          659.25,
+          698.46,
+          783.99,
+          880.0,
+          987.77,
+          1046.5,
+        ];
+
+        let start = 0,
+          direction = 1;
+
+        button.addEventListener('click', function() {
+          let value = frequency[start];
+
+          if (!value) {
+            direction = -1 * direction;
+            start = start + 2 * direction;
+            value = frequency[start];
+          }
+
+          start = start + direction;
+          // 创建一个OscillatorNode, 它表示一个周期性波形（振荡），基本上来说创造了一个音调
+          let oscillator = context.createOscillator();
+          // 创建一个Node,它可以控制音频的总音量
+          let node = context.createGain();
+          // 把音量，音调和终节点进行关联
+          oscillator.connect(node);
+          // audioCtx.destination返回AudioDestinationNode对象，表示当前audio context中所有节点的最终节点，一般表示音频渲染设备
+          node.connect(context.destination);
+          // 指定音调的类型，其他还有square|triangle|sawtooth
+          oscillator.type = 'sine';
+          // 设置当前播放声音的频率，也就是最终播放声音的调调
+          oscillator.frequency.value = value;
+          // 当前时间设置音量为 0
+          node.gain.setValueAtTime(0, context.currentTime);
+          // 0.01秒后音量为1
+          node.gain.linearRampToValueAtTime(1, context.currentTime + 0.01);
+
+          oscillator.start(context.currentTime);
+
+          node.gain.exponentialRampToValueAtTime(
+            0.001,
+            context.currentTime + 1,
+          );
+
+          oscillator.stop(context.currentTime + 1);
+        });
+      })();
+    </script>
+  </body>
+</html>

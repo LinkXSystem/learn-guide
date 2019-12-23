@@ -1,17 +1,11 @@
-const { Method } = require("./constants");
-const Robot = require("./robot");
-const Command = require("./command");
+const { Method } = require('./constants');
+const Robot = require('./robot');
+const Command = require('./command');
+const Plugins = require('./plugins');
 
-const argvs = Command(process.argv);
-
-if (!argvs.port) {
-  throw new Error("You need to specify the server's port !!!");
-}
-
-console.warn(argvs);
-
-let robot = Robot.factory(argvs.port);
-
-robot.bind("/action", Method.POST, (request, response) => {
-  response.end(JSON.stringify({ status: true, message: "Action method !!!" }));
-});
+module.exports = {
+  Method,
+  Robot,
+  Plugins,
+  Command
+};

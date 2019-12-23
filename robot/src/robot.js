@@ -1,20 +1,26 @@
-const http = require("http");
+const http = require('http');
+const Runtime = require('./runtime');
+const Logger = require('./logger');
+
+const Utils = require('./utils');
+const { Method } = require('./constants');
 
 class Robot {
-  static factory(port = 3600) {
-    const robot = new Robot();
+  static factory(configuration) {
+    const { port } = configuration;
+    const robot = new Robot(configuration);
 
     http
       .createServer((request, response) => {
         robot.launcher(request, response);
       })
-      .listen(port);
+      .listen(port || 4200);
 
     return robot;
   }
 
   constructor(configuration) {
-    const { error } = configuration || {};
+    const { error, name } = configuration || {};
     let temp_ = configuration || {};
 
     if (!error) {
@@ -23,8 +29,24 @@ class Robot {
       });
     }
 
+    if (!name) {
+      temp_ = Object.assign(temp_, {
+        name: 'ROBOT'
+      });
+    }
+
     this.config = temp_;
+
+    this.init();
+  }
+
+  init() {
+    const { logger, name } = this.config;
+    this.runtime = new Runtime();
+    this.plugins = [];
     this.router = new Map();
+
+    this.runtime.extend('logger', logger || new Logger(name));
   }
 
   launcher(request, response) {
@@ -32,20 +54,20 @@ class Robot {
 
     let buffer = [];
 
-    request.on("error", info => {
+    request.on('error', info => {
       buffer = [];
       this.error(response);
     });
 
-    request.on("data", chunk => {
+    request.on('data', chunk => {
       buffer.push(chunk);
     });
 
-    request.on("end", () => {
-      // body = Buffer.concat(body).toString();
+    request.on('end', () => {
       const callback = this.router.get(`${url}|${method}`);
       if (callback) {
-        return callback(request, response);
+        const series = [].concat(this.plugins, [callback]);
+        return Utils.flow(request, response, series);
       }
 
       this.error(response);
@@ -57,13 +79,32 @@ class Robot {
     response.end(JSON.stringify(error));
   }
 
-  plugin() {}
+  plugin(callback) {
+    const func = callback.bind(this);
+    this.plugins.push(func);
+  }
 
   bind(path, method, callback) {
     this.router.set(`${path}|${method}`, callback);
   }
 
-  unbind(path, method) {}
+  unbind(path, method) {
+    const key = `${path}|${method}`;
+    if (this.router.get(key)) {
+      this.router.delete(key);
+    }
+  }
+
+  get(path, callback) {
+    this.bind(path, Method.GET, callback);
+  }
+
+  post(path, callback) {
+    this.bind(path, Method.POST, callback);
+  }
+
+  // TODO: 未实现
+  group() {}
 
   destroy() {}
 }

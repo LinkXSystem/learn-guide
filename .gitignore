@@ -24,3 +24,6 @@ latex/**/*.toc
 
 # ignore robot's log
 robot/**/logs
+
+#ignore rust's project
+rust/.cache

@@ -35,11 +35,21 @@ Function.prototype.applyX = function(context, arguments) {
   return result;
 };
 
-function test(name, country) {
+function test(name, country, callback) {
   console.warn(this, name, country);
+
+  callback && callback();
+
+  console.warn(callback);
 }
 
 (function() {
   const x = { value: 10 };
-  test.applyX(x, ["linksystem", "China"]);
+  test.applyX(x, [
+    "linksystem",
+    "China",
+    function inline() {
+      console.warn("-x-");
+    }
+  ]);
 })();

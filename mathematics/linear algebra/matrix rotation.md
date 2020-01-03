@@ -48,3 +48,63 @@ $$
 *
 \begin{bmatrix} x\\\\y \end{bmatrix}
 $$
+
+## 绕任意轴三维旋转
+
+对于一个三维空间的点$P(x,y,z)$，将其绕对应的轴旋转 $\theta$ 度，可以用以下旋转矩阵表示：
+
+- 绕 Z 轴旋转
+
+$$
+R_{z}(\theta) = \begin{bmatrix} \cos\theta & -\sin\theta & 0\\\\ \sin\theta & \cos\theta &0 \\\\ 0 & 0 & 1\end{bmatrix}
+$$
+
+- 绕 X 轴旋转
+
+$$
+R_{x}(\theta) = \begin{bmatrix} 1 & 0 & 0 \\\\ 0 & \cos\theta & -\sin\theta \\\\ 0 &  \sin\theta & \cos\theta \end{bmatrix}
+$$
+
+- 绕 Y 轴旋转
+
+$$
+R_{y}(\theta) = \begin{bmatrix} \cos\theta & 0 & \sin\theta \\\\ 0 & 1 & 0 \\\\ -\sin\theta & 0 & \cos\theta \end{bmatrix}
+$$
+
+那么在此之上我们如果需要绕任意轴旋转，我们需要如何实现呢？
+
+我们可以通过将这个旋转分解，得到如下步骤：
+
+- 将整个坐标轴旋转，使得旋转轴 p 和 z 轴重合
+- 再将点 P 绕 z 轴旋转 $\theta$ 角
+- 再将整个坐标轴旋转回原位
+
+![image](https://github.com/LinkXSystem/learn-guide/blob/master/mathematics/assets/images/3d-angle-rotation-matrix-1024x967.png)
+
+通过上图，我们便可以得到如何通过两个角 $\phi$ 和 $\psi$来表示任意旋转轴的位置，公式如下：
+
+$$
+\begin{cases}
+x = \sin\phi\cos\psi \\
+y = \sin\phi\cos\psi \\
+z = \cos\psi \\
+\end{cases}
+$$
+
+那整个旋转便可以这样表示：
+
+$$
+R_{z}(\psi)R_{y}(\phi)R_{z}(\theta)R_{y}(-\phi)R_{z}(-\psi)
+$$
+
+等效于
+
+$$
+R_{z}(\psi)R_{y}(\phi)R_{z}(\theta)R_{y}^{T}(\phi)R_{z}^{T}(\psi)
+$$
+
+最终，通过化简我们可以的到最后的旋转矩阵：
+
+$$
+\begin{bmatrix} \cos\theta + x^2(1 - \cos\theta) & xy(1 - \cos\theta) - z\sin\theta & xz(1 - \cos\theta) + y\sin\theta \\\\ yx(1 -\cos\theta) + z\sin\theta & \cos\theta + y^2(1 - \cos\theta) & yz(1 - \cos\theta) - x\sin\theta \\\\ zx(1 - \cos\theta) + y\sin\theta &  zy(1 - \cos\theta) + x\sin\theta & \cos\theta + z^2(1 - \cos\theta) \end{bmatrix}
+$$

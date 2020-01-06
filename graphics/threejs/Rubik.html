@@ -1,37 +1,162 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>Rubik</title>
-    <link rel="stylesheet" href="main.css" />
-    <script src="https://unpkg.com/three@0.105.1/build/three.js"></script>
-    <script src="https://unpkg.com/three@0.105.1/examples/js/controls/OrbitControls.js"></script>
-  </head>
-  <body>
-    <script>
-      class RubikRenderer {
-        constructor() {
-          this.initRender();
-          this.initCamera();
-          this.initScene();
-          this.initLight();
-          this.initObject();
-          this.initEvent();
-          this.render();
-        }
 
-        initRender() {}
-        initCamera() {}
-        initScene() {}
-        initObject() {}
-        initEvent() {}
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <title>Rubik</title>
+  <link rel="stylesheet" href="main.css" />
+  <script src="https://unpkg.com/three@0.105.1/build/three.js"></script>
+  <script src="https://unpkg.com/three@0.105.1/examples/js/controls/OrbitControls.js"></script>
+  <script src="./models/rubik/Rubik.js"></script>
+</head>
 
-        render() {}
+<body>
+  <div id="canvas"></div>
+  <script>
+    class RubikRenderer {
+      constructor() {
+        this.container = document.getElementById('canvas');
+        this.width = window.innerWidth;
+        this.height = window.innerHeight;
+        this.devicePixelRatio = window.devicePixelRatio;
+        this.viewCenter = new THREE.Vector3(0, 0, 0);
+
+        this.raycaster = new THREE.Raycaster();
+        this.intersect;
+        this.normalize;
+        this.target;
+        this.startPoint;
+        this.movePoint;
+        this.isRotating = false;
+
+        this.initRender();
+        this.initCamera();
+        this.initScene();
+        this.initLight();
+        this.initObject();
+        this.initEvent();
+        this.render();
       }
 
-      const instance = new RubikRenderer();
-    </script>
-  </body>
+      initRender() {
+        this.renderer = new THREE.WebGLRenderer({
+          antialias: true,
+        });
+
+        this.renderer.setSize(this.width, this.height);
+        this.renderer.setClearColor(0xFFFFFF, 1.0);
+        this.renderer.setPixelRatio(this.devicePixelRatio);
+
+        this.container.appendChild(this.renderer.domElement);
+      }
+      initCamera() {
+        this.camera = new THREE.PerspectiveCamera(45, this.width / this.height, 1, 1500);
+        this.camera.position.set(0, 0, 300 / this.camera.aspect);
+        this.camera.up.set(0, 1, 0);//正方向
+        this.camera.lookAt(this.viewCenter);
+
+        //轨道视角控制器
+        // this.orbitController = new THREE.OrbitControls(this.camera, this.renderer.domElement);
+        // this.orbitController.enableZoom = false;
+        // this.orbitController.rotateSpeed = 2;
+        // this.orbitController.target = this.viewCenter;//设置控制点
+      }
+      initScene() {
+        this.scene = new THREE.Scene();
+      }
+      initLight() {
+        this.light = new THREE.AmbientLight(0xFEFEFE);
+        this.scene.add(this.light);
+      }
+      initObject() {
+        let rubik = new Rubik(this);
+        rubik.model();
+        this.target = rubik;
+      }
+      initEvent() {
+        window.addEventListener('touchstart', this.handleTouchStart.bind(this));
+        window.addEventListener('touchmove', this.handleTouchMove.bind(this));
+        window.addEventListener('touchend', this.handleTouchEnd.bind(this));
+      }
+
+      render() {
+        this.renderer.clear();
+        this.renderer.render(this.scene, this.camera);
+        requestAnimationFrame(this.render.bind(this));
+      }
+
+      handleTouchStart(event) {
+        this.getIntersects(event);
+        if (!this.isRotating && this.intersect) {
+          this.startPoint = this.intersect.point;
+        }
+      }
+
+      handleTouchMove() {
+        this.getIntersects(event);
+        if (!this.isRotating && this.startPoint && this.intersect) {
+          this.movePoint = this.intersect.point;
+          if (!this.movePoint.equals(this.startPoint)) {
+            console.warn("===x===");
+            // 旋转 魔方
+            this.rotateRubik();
+          }
+        }
+      }
+
+      handleTouchEnd() {
+
+      }
+
+      getIntersects(event) {
+        const touch = event.touches[0];
+        let mouse = new THREE.Vector2();
+        mouse.x = (touch.clientX / this.width) * 2 - 1;
+        mouse.y = -(touch.clientY / this.height) * 2 + 1;
+
+        this.raycaster.setFromCamera(mouse, this.camera);
+
+        let targetIntersect = this.scene.children[1];
+
+        if (targetIntersect) {
+          const intersects = this.raycaster.intersectObjects(targetIntersect.children);
+          if (intersects.length >= 2) {
+            // console.warn(intersects[0].object.cubeType);
+            if (intersects[0].object.cubeType === 'coverCube') {
+              this.intersect = intersects[1];
+              this.normalize = intersects[0].face.normal;
+            } else {
+              this.intersect = intersects[0];
+              this.normalize = intersects[1].face.normal;
+            }
+          }
+        }
+      }
+
+      rotateRubik() {
+        this.isRotating = true;
+        let sub = this.movePoint.sub(this.startPoint);
+        let direction = this.target.getDirection(sub, this.normalize);
+        let cubeIndex = this.intersect.object.cubeIndex;
+        this.target.rotateMove(cubeIndex, direction, () => {
+          this.resetRotateParams();
+        });
+      }
+
+      resetRotateParams() {
+        this.isRotating = false;
+        // this.target = null;
+        this.intersect = null;
+        this.normalize = null;
+        this.startPoint = null;
+        this.movePoint = null;
+      }
+    }
+
+    const instance = new RubikRenderer();
+  </script>
+</body>
+
 </html>

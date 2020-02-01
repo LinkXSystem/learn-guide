@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Electron</title>
+    <style>
+      html,
+      body,
+      * {
+        padding: 0;
+        margin: 0;
+        box-sizing: border-box;
+      }
+
+      html,
+      body {
+        height: 100%;
+        overflow: hidden;
+      }
+
+      body {
+        padding: 1em;
+      }
+
+      .container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        width: 360px;
+        height: 360px;
+        border-radius: 50%;
+
+        background: linear-gradient(45deg, #000000, #ffffff);
+
+        box-shadow: 0em 0em 0.25em #b2b2b2;
+      }
+    </style>
+  </head>
+  <body style="-webkit-app-region: drag">
+    <div class="container"></div>
+  </body>
+</html>

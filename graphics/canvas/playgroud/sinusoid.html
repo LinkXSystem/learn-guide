@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Waves</title>
+    <style>
+      html,
+      body,
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      html,
+      body {
+        overflow: hidden;
+        background: #f0f0f0;
+      }
+    </style>
+  </head>
+  <body>
+    <script>
+      // 建议参考文档: https://zh.wikipedia.org/wiki/%E6%AD%A3%E5%BC%A6%E6%9B%B2%E7%B7%9A
+
+      const canvas = document.createElement("canvas");
+      let width = window.innerWidth;
+      let height = window.innerHeight;
+
+      (canvas.width = width), (canvas.height = height);
+
+      document.body.appendChild(canvas);
+
+      window.addEventListener("resize", () => {
+        width = window.innerWidth;
+        height = window.innerHeight;
+        canvas.width = width;
+        canvas.height = height;
+      });
+
+      const context = canvas.getContext("2d");
+      const delta = 300;
+
+      animate();
+
+      function draw(config) {
+        config = config || {};
+
+        const offset = height / 2 + (config.delta || 0);
+
+        const omega = config.omega || (Math.PI / 180) * 2;
+        const theta = (Math.PI / 180) * 30;
+        const amplitude = 60;
+
+        const t = Date.now();
+
+        const points = [{ x: 0, y: offset }];
+
+        context.beginPath();
+        context.lineWidth = 10;
+
+        for (let x = 0; x < width; x += 1) {
+          const y = Math.sin(omega * x + theta) * amplitude + offset;
+          const point = { x, y };
+          points.push(point);
+
+          !x ? context.moveTo(x, y) : context.lineTo(x, y);
+        }
+
+        context.strokeStyle = config.color || "#b2b2b2";
+        context.stroke();
+        context.closePath();
+      }
+
+      function animate() {
+        context.clearRect(0, 0, width, height);
+
+        draw({
+          color: "#a42d21",
+          delta: -delta,
+          omega: (Math.PI / 180) * 3
+        });
+        draw();
+        draw({
+          color: "#212121",
+          delta: delta
+        });
+
+        requestAnimationFrame(animate);
+      }
+    </script>
+  </body>
+</html>

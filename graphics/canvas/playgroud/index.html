@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+    <style>
+      html,
+      body,
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+      }
+    </style>
+  </head>
+  <body>
+    <canvas id="canvas"></canvas>
+    <script>
+      window.addEventListener('load', initial, false);
+      window.addEventListener('resize', initial, false);
+
+      function isSupportCanvas(canvas) {
+        return !canvas.getContext;
+      }
+
+      function initial() {
+        const canvas = document.getElementById('canvas');
+
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        if (isSupportCanvas(canvas))
+          throw new Error("Don't Support Canvas in the Browser");
+
+        const context = canvas.getContext('2d');
+
+        let alpha = 0;
+
+        const draw = function() {
+          alpha += 0.1;
+
+          context.globalAlpha = alpha;
+
+          context.save();
+
+          context.fillStyle = '#000000';
+          context.font = '24px sans-serif';
+          context.textBaseline = 'top';
+
+          context.fillText('Hello, Canvas & LinkSystem', 2, 2);
+
+          context.fillRect(
+            window.innerWidth / 2,
+            window.innerHeight / 2,
+            100,
+            100,
+          );
+
+          context.strokeStyle = '#f5f5f5';
+          context.strokeRect(
+            window.innerWidth / 2 + 100,
+            window.innerHeight / 2 + 100,
+            100,
+            100,
+          );
+
+          context.strokeStyle = '#b2b2b2';
+          context.strokeRect(
+            window.innerWidth / 2 + 100,
+            window.innerHeight / 2,
+            100,
+            100,
+          );
+
+          context.restore();
+
+          context.save();
+          context.beginPath();
+          context.strokeStyle = '#ffcd42';
+
+          context.arc(
+            window.innerWidth / 2,
+            window.innerHeight / 2,
+            200,
+            (Math.PI / 180) * 0,
+            (Math.PI / 180) * 360,
+            false,
+          );
+
+          context.stroke();
+          context.closePath();
+          context.restore();
+
+          //   context.beginPath();
+          //   context.strokeStyle = '#149f5b';
+          //   context.moveTo(window.innerWidth / 2, 100);
+
+          //   context.arcTo(
+          //     0,
+          //     0,
+          //     window.innerWidth / 2,
+          //     window.innerHeight / 2,
+          //     100,
+          //   );
+          //   context.stroke();
+          //   context.closePath();
+
+          context.save();
+          context.fillStyle = '#4b8bf4';
+          context.fillRect(0, 0, window.innerWidth, window.innerHeight);
+          context.clip();
+
+          context.restore();
+          context.save();
+          context.shadowOffsetX = 4;
+          context.shadowOffsetY = 4;
+          context.shadowColor = 'red';
+          context.shadowBlur = 4;
+          context.fillRect(20, 20, 200, 200);
+        };
+
+        const animate = function() {
+          if (alpha >= 1) return;
+
+          requestAnimationFrame(animate);
+
+          draw();
+        };
+
+        animate();
+      }
+    </script>
+  </body>
+</html>

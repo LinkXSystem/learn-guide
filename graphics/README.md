@@ -1,30 +1,41 @@
-# THREE 简易入门教程
+# 图形
 
-## 词语解析
+## canvas
 
-- THREE.Geometry
+> [源码地址](https://github.com/LinkXSystem/learn-guide/blob/master/graphics/canvas)
 
-  - Geometries are easier to work with than BufferGeometries as they store attributes such as vertices, faces, colors and so on directly (rather than in buffers), however they are generally slower.
-  - 用于构建对于的物体形状，是所有 Geometry 的基类
+## svg
 
-- THREE.Material
+> [源码地址](https://github.com/LinkXSystem/learn-guide/blob/master/graphics/svg)
 
-  - These constants define properties common to all material types, with the exception of Texture Combine Operations which only apply to MeshBasicMaterial, MeshLambertMaterial and MeshPhongMaterial.
-  - 用于控制物体的材质
+使用 svg 或 canvas 都是相对场景而言的
 
-- THREE.Camera
+## gl
 
-  -
+> [源码地址](https://github.com/LinkXSystem/learn-guide/blob/master/graphics/gl)
 
-- THREE.Group
+基于 WebGL 的实践, 相较于 three.js 更偏向于基础， three.js 则作为 webgl 的高级的易用的功能库存在
 
-  - This is almost identical to an Object3D. Its purpose is to make working with groups of objects syntactically clearer.
-  - Object3D 对象的语法糖，将 ThreeJS 组合起来统一操作
+## shader
 
-- THREE.Vector3
+> [源码地址](https://github.com/LinkXSystem/learn-guide/blob/master/graphics/shader)
 
-  - Class representing a 3D vector. A 3D vector is an ordered triplet of numbers (labeled x, y, and z), which can be used to represent a number of things, such as:
-    - A point in 3D space.
-    - A direction and length in 3D space. In three.js the length will always be the Euclidean distance (straight-line distance) from (0, 0, 0) to (x, y, z) and the direction is also measured from (0, 0, 0) towards (x, y, z).
-    - Any arbitrary ordered triplet of numbers.
-  - 向量，用于描述空间中的点，可以用于测量两点之间的距离，或者组合来描绘一条线
+shader 使用于 OpenGL / WebGL 的渲染函数，可以在 unity / three.js 等应用来模拟一些纹理材质
+
+## three.js
+
+> [源码地址](https://github.com/LinkXSystem/learn-guide/blob/master/graphics/threejs)
+
+此模块是早期学习 three.js 的笔记和源码，但是目前已经转移至[此项目](https://github.com/LinkXSystem/three.js) 来进行实践
+
+## babylon.js
+
+> [源码地址](https://github.com/LinkXSystem/learn-guide/blob/master/graphics/babylon.js)
+
+以 three.js 一样，但更适合作为游戏层面的开发，相较于 three.js , API 更为简洁
+
+## ar.js
+
+> [源码地址](https://github.com/LinkXSystem/learn-guide/blob/master/graphics/ar.js)
+
+作为 WebXR 的 API 的替代品，仅作为尝试使用

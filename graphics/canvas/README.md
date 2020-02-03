@@ -1,6 +1,6 @@
 # [Canvas](https://github.com/LinkXSystem/learn-guide/tree/master/graphics/canvas)
 
-## 入门教材
+## 入门教程
 
 建议学习 MDN 的 Canvas 的教程, [教程地址](https://developer.mozilla.org/zh-CN/docs/Web/API/Canvas_API/Tutorial)
 

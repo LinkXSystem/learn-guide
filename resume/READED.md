@@ -1,4 +1,4 @@
-# 个人信息
+## 个人信息
 
 <div style="display: flex;">
   <img
@@ -11,7 +11,7 @@
       <span>期望职位：前端工程师</span>
     </p>
     <p>
-      <span>工作年限：1.5 年</span>
+      <span>工作年限：2 年</span>
     </p>
     <p>
       <span>Github: https://github.com/LinkXSystem</span>
@@ -21,7 +21,7 @@
 
 ---
 
-# 联系方式
+## 联系方式
 
 <div style="display: flex;">
   <img
@@ -41,40 +41,43 @@
   </div>
 </div>
 
----
+## 自我介绍
 
-# 技能清单
+了解 react / vue 前端框架，并能运用相关技术的全家桶进行开发。由于目前在硬件相关的公司中任职前端开发，主要负责与硬件相关的协议及数据传输的功能和相关界面的开发。
 
-以下均为我通用的技能，以框架和端来划分：
+了解 git 的相关命令，并能熟练进行操作。
 
-- nodejs 技术栈:
-
-  - 框架：express/koa/egg.js/hapi
-  - 接口文档: swagger
-  - 数据库：mongodb/mariadb
-
-- vue 技术栈:
-
-  - 通用模块：vuex, vue-router, axios, scss
-  - 移动端: vant, nuxt.js (SEO 优化)
-  - PC 端：element-ui, nuxt.js
-  - 管理后台: element-ui
-
-- react 技术栈:
-
-  - 通用模块：react, react-router, axios/fetch, scss
-  - 移动端: next.js
-  - PC 端：next.js, ant-design
-  - 管理后台: ant-design
-
-- 版本管理：git
-- 文档管理：vuepress
+同时在工作之余，学习了 Three.js / Canvas / SVG 的相关技术。
 
 ---
 
-# 工作经历
+## 工作经历
 
-## 蛋壳创意科技有限公司 （ 2018 年 3 月 ~ 2019 年 1 月 ）
+### 乐聚（深圳）机器人技术有限公司 （ 2019 年 3 月 ~ 至今 ）
+
+### Talos Action Editor
+
+- 项目时间：2019 年 6 月 - 至今
+
+- 项目简介： Talos 人形机器人的动作编辑及代码编辑软件
+
+- 项目技术：
+  - 基于 electron 实现跨平台客户端开发，基于 react 与 blockly 来实现动作编辑界面和代码编辑界面
+  - 通过 socket 来实现与机器人的通信，实现在 wifi 的局域网下控制机器人，以及机器人消息的主动反馈
+  - 通过 SSH 和 SCP 的方式实现文件传输以及指令控制
+
+### Aelos Edu Editor
+
+- 项目时间：2019 年 3 月 - 至今
+
+- 项目简介： Aelos 系列的人形机器人的动作编辑及代码生成软件
+
+- 项目技术：
+  - 基于 electron 实现跨平台客户端开发，基于 react 与 blockly 来实现动作编辑界面和代码编辑界面
+  - 通过串口通信以及蓝牙的方式对机器人进行控制
+  - 由 Editor 通过 Node 及集成 LUA 编译器生成运行的字节码文件
+
+### 蛋壳创意科技有限公司 （ 2018 年 3 月 ~ 2019 年 1 月 ）
 
 ### Dankal 模板设计
 
@@ -97,9 +100,8 @@
 
 - 项目概况：星美乐小程序是为美心集团的线下门店打造的小程序，允许顾客通过小程序扫描线下门店的二维码，实现线上点单，快速通知到厨房，使服务员能够快速的送达顾客身边。
 - 项目技术：
-  - 基于 wepy 框架开发对应的小程序
+  - 基于 wepy 框架开发对应的小程序，基于 wepy-redux 实现状态管理
   - 前后端分离，接口部分使用 restful 风格
-  - 基于 wepy-redux 实现状态管理
 
 ### BV 美聚 （PC 端）
 
@@ -110,50 +112,8 @@
 - 项目技术：
   - 基于 nuxt.js 开发，便于 seo 优化，同时 基于 express 的中间来实现微信登录
   - 使用 element-ui 定制基本业务组件
-  - 使用 vuex 作为状态管理
   - 定制 checkbox 编写多状态、多选择的服务预约组件
   - 支持支付宝和微信支付，使用 window.history 的相关 API 解决支付宝跨站导致的 vue-router 无法刷新到正确页面的问题
-
-### 小易智投 （小程序）
-
-- 项目时间：2018 年 3 月 - 2018 年 4 月
-
-- 项目描述：小易智投是一款关于投资推荐的产品， 通过调查问卷来了解用户相关的投资偏好，同时推荐用户相关的投资类产品。
-
-- 项目技术：
-
-  - 基于 wepy 框架开发对应的小程序，基于 wepy-redux 实现状态管理
-  - echart.js 来实现图表类数据的呈现
-  - 关于股票和基金的 k 线图，则通过内嵌 webview 来实现数据的呈现
-
-## 南京云中央科技有限公司 （ 2017 年 11 月 ~ 208 年 2 月 ）
-
-### 斑点购 （B 端）
-
-- 项目时间：2017 年 11 月 - 2018 年 2 月
-
-- 项目简介：斑点购项目是为南京云中央的线下便利店提供线上购买及配送，和线上自提的一款新零售服务的 APP，主要有 B 和 C 端。B 端为商家端，提供商家的管理服务功能，实现库存预警、商品快速入库补货的功能。
-
-- 项目技术：
-  - 使用 react-native 作为主要开发框架，支持 android 和 ios 平台
-  - 前后端分类，使用基于 fetch 封装作为主要异步请求库
-  - 通过 API 轮询实现库存实时查询
-
----
-
-## 开源项目
-
-（对于程序员来讲，没有什么比 Show me the code 能有说服力了）
-
-- [数据可视化博客系统（前端模块）](https://github.com/LinkXSystem/visualization-system)：
-
-  - 项目简介：尝试可视化来设计博客项目，通过 multi-page 来划分不同的页面承载不同的功能模块
-  - 主要技术：react/react-router/redux
-
-- [数据可视化博客系统（服务端模块）](https://github.com/LinkXSystem/visualization-compute-system)：
-
-  - 项目简介：为数据可视化博客系统（前端模块）的服务端，用于提供数据分析统计的服务，基于 nodejieba 来进行分词处理，为文章提供标签标记
-  - 主要技术：egg.js/nodejieba/mongodb
 
 ---
 

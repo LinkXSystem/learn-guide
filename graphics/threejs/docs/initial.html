@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+    <script src="../assets/js/THREE.js"></script>
+    <style>
+      html,
+      body,
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+      }
+    </style>
+  </head>
+  <body>
+    <script>
+      const scene = new THREE.Scene();
+
+      const camera = new THREE.PerspectiveCamera(
+        75,
+        window.innerWidth / window.innerHeight,
+        0.1,
+        1000,
+      );
+
+      const renderer = new THREE.WebGLRenderer();
+      renderer.setSize(window.innerWidth, window.innerHeight);
+      document.body.appendChild(renderer.domElement);
+
+      const geometry = new THREE.BoxBufferGeometry(1, 1, 1);
+      const material = new THREE.MeshBasicMaterial({ color: 0xffffff });
+
+      const cubeA = new THREE.Mesh(geometry, material);
+      cubeA.position.set(1, 0, 0);
+
+      const cubeB = cubeA.clone();
+      cubeB.position.set(-1, 0, 0);
+
+      const cubeC = cubeA.clone();
+      cubeC.position.set(0, 1, 0);
+
+      const cubeD = cubeA.clone();
+      cubeD.position.set(0, -1, 0);
+
+      //create a group and add the two cubes
+      //These cubes can now be rotated / scaled etc as a group
+      const group = new THREE.Group();
+      group.add(cubeA);
+      group.add(cubeB);
+      group.add(cubeC);
+      group.add(cubeD);
+
+      scene.add(group);
+
+      camera.position.z = 5;
+
+      const animate = function() {
+        requestAnimationFrame(animate);
+
+        group.rotation.z += 0.1;
+        group.rotation.x += 0.1;
+        group.rotation.y += 0.1;
+
+        renderer.render(scene, camera);
+      };
+
+      animate();
+
+      // function initial() {
+      //   const sence = new THREE.Scene();
+
+      // }
+    </script>
+  </body>
+</html>

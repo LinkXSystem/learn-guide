@@ -1,17 +1,15 @@
 ## 个人信息
 
 <div style="display: flex;">
-  <img
-    src="./assets/image/avatar.jpg"
-    style="width: 120px; height: 150px;border-radius: 4px;"
-  />
   <div style="margin-left: 2em;">
     <p>
       <span>杨志</span>
       <span>期望职位：前端工程师</span>
-      <span>期望薪资：15k ~ 17k</span>
+      <span>期望薪资：面议</span>
     </p>
     <p>
+      <span>年龄：23</span>
+      <span>学历：专科</span>
       <span>工作年限：2 年</span>
     </p>
     <p>
@@ -25,17 +23,48 @@
 
 ---
 
-## 自我评价
+## 专业技能
 
-热衷于研究前端框架相关的技术，并与他人讨论相关的内容。时常思考是否有更好的实践方式，如何编写一份易读的代码。
-
-偶尔会撰写一些技术的文档。在业余时间，喜爱实践一些与工作无关的技术，或新兴的技术。目前的兴趣主要集中在研究 WebGL / Three.js 和 Canvas 等技术。
+- 熟悉 React / Vue 的使用以及相关技术的使用
+- 熟悉 Node.js 的使用以及相关技术的使用
+- 擅长 React / Vue 的 UI 框架的源码分析，并能解决相关 UI 框架的 BUG
+- 了解 Gitlab 的 CI/CD 的使用，并进行部署
+- 了解 Blockly 的代码实现，以及解析其代码并解决其 BUG
+- 了解通过 Chrome 的 devtool 来分析代码的性能瓶颈
+- 擅长通过分析代码进行代码的重构和优化
 
 ---
 
 ## 工作经历
 
-### 乐聚（深圳）机器人技术有限公司 （ 2019 年 3 月 ~ 至今 ）
+<table>
+  <thead>
+    <tr>
+      <th align="left">公司名称</th>
+      <th align="left">在职时间</th>
+      <th align="left">所属行业</th>
+      <th align="left">担任职位</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>乐聚（深圳）机器人有限公司</td>
+      <td>2019 年 3 月 ~ 至今</td>
+      <td>智能硬件/机器人</td>
+      <td>前端工程师</td>
+    </tr>
+    <tr>
+      <td>深圳蛋壳创意有限公司</td>
+      <td>2018 年 3 月 ~ 2019 年 1 月</td>
+      <td>电商/行业模板</td>
+      <td>前端工程师</td>
+    </tr>
+  </tbody>
+</table>
+
+---
+
+## 项目经历
 
 ### Talos Action Editor
 
@@ -79,8 +108,6 @@
 
   同时通过基于 WebSocket 的通信方式来实现对相关硬件的控制，并在插件内部维护自己的消息队列
   以及对插件函数进行代理统一转换返回值为 Promise 进行数据的流程控制。让硬件的行为表现如 scratch 积木中定义的一致。
-
-### 蛋壳创意科技有限公司 （ 2018 年 3 月 ~ 2019 年 1 月 ）
 
 ### Dankal 模板设计
 
@@ -127,6 +154,14 @@
 - 项目职责：
 
   在项目中, 主要工作是开发 UI 界面以及负责对接接口。该项目通过基于 nuxt.js 进行开发，通过 nuxt.js 的 express 的中间件来实现微信登录，同时由于 nuxt.js 支持 SSR 便于对搜索引擎的 SEO 优化。同时该项目需要支持支付宝和微信支付，但在实现过程中存在支付宝跨站导致的 vue-router 无法刷新到正确页面的问题，需要使用 window.history 的相关 API 解决问题。在 UI 方面，由于为 PC 端，通过使用使用 element-ui 定制基本业务组件。
+
+---
+
+## 自我评价
+
+热衷于研究前端框架相关的技术，并与他人讨论相关的内容。时常思考是否有更好的实践方式，如何编写一份易读的代码。
+
+偶尔会撰写一些技术的文档。在业余时间，喜爱实践一些与工作无关的技术，或新兴的技术。目前的兴趣主要集中在研究 WebGL / Three.js 和 Canvas 等技术。
 
 ---
 

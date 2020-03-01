@@ -8,7 +8,7 @@
 
 ## 目录结构
 
-> 以下是目前已经整理的项目结构，目前尚未成型，理想的情况下，我希望它可以被 [linkxsystem.github.io](https://github.com/LinkXSystem/linkxsystem.github.io) 转换。 
+> 以下是目前已经整理的项目结构，目前尚未成型，理想的情况下，我希望它可以被 [linkxsystem.github.io](https://github.com/LinkXSystem/linkxsystem.github.io) 转换。
 
 ```sh
 .
@@ -32,6 +32,16 @@
 ├── python
 └── resume # 个人简历资料
 ```
+
+## 翻译项目
+
+- [Making-a-custom-React-renderer](https://github.com/iTranslation/Making-a-custom-React-renderer)
+
+  如何构建一个自定义的 React renderer 的教程（中文译版）
+
+- [the-super-tiny-compiler](https://github.com/iTranslation/the-super-tiny-compiler)
+
+  如何构建一个最小的编译器的教程（中文译版）
 
 ## 感想
 

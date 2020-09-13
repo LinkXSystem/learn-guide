@@ -1,5 +1,5 @@
 [package]
-name = "dalax"
+name = "singleton"
 version = "0.1.0"
 authors = ["LinkXSystem <linkasde_system@163.com>"]
 edition = "2018"

@@ -8,8 +8,6 @@
 
 ## 目录结构
 
-> 以下是目前已经整理的项目结构，目前尚未成型，理想的情况下，我希望它可以被 [linkxsystem.github.io](https://github.com/LinkXSystem/linkxsystem.github.io) 转换。
-
 ```sh
 .
 ├── blockly
@@ -32,6 +30,39 @@
 ├── python
 └── resume # 个人简历资料
 ```
+
+## issue 的问题
+
+- 结构设计
+
+[复数图层的合成思路及图层文件设计](https://github.com/LinkXSystem/learn-guide/issues/40)
+
+[如何设计一个文件格式](https://github.com/LinkXSystem/learn-guide/issues/39)
+
+[文件格式设计的实现思路](https://github.com/LinkXSystem/learn-guide/issues/32)
+
+[如何解析指定类型的文件](https://github.com/LinkXSystem/learn-guide/issues/31)
+
+[WebAssembly 是否应该使用在某些环境中](https://github.com/LinkXSystem/learn-guide/issues/29)
+
+[如何在 Javascript 中模拟并行和串行的功能](https://github.com/LinkXSystem/learn-guide/issues/24)
+
+[通用通讯协议格式设计](https://github.com/LinkXSystem/learn-guide/issues/15)
+
+- 小技巧
+
+[前端小技巧](https://github.com/LinkXSystem/learn-guide/issues/3)
+
+[Javascript 小技巧](https://github.com/LinkXSystem/learn-guide/issues/44)
+
+[Node 小技巧](https://github.com/LinkXSystem/learn-guide/issues/42)
+
+[CSS 小技巧](https://github.com/LinkXSystem/learn-guide/issues/8)
+
+[React 小技巧](https://github.com/LinkXSystem/learn-guide/issues/4)
+
+[Markdown 小技巧](https://github.com/LinkXSystem/learn-guide/issues/43)
+
 
 ## 翻译项目
 

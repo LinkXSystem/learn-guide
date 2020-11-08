@@ -55,9 +55,7 @@
 
 [Javascript 小技巧](https://github.com/LinkXSystem/learn-guide/issues/44)
 
-[Node 小技巧](https://github.com/LinkXSystem/learn-guide/issues/42)
-
-[CSS 小技巧](https://github.com/LinkXSystem/learn-guide/issues/8)
+[Node &nbsp;小技巧](https://github.com/LinkXSystem/learn-guide/issues/42)
 
 [React 小技巧](https://github.com/LinkXSystem/learn-guide/issues/4)
 

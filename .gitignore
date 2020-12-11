@@ -11,7 +11,7 @@ yarn.lock
 # ignore vscode's cofiguration
 .vscode
 
-# ignore latex's compile 
+# ignore latex's compile
 
 latex/**/*.aux
 latex/**/*.log
@@ -25,5 +25,8 @@ latex/**/*.toc
 # ignore robot's log
 robot/**/logs
 
-#ignore rust's project
+# ignore rust's project
 rust/.cache
+
+# ignore the system file
+.DS_Store

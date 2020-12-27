@@ -144,5 +144,5 @@ new IPromise((resolve, reject) => {
     resolve(1);
   }, 0);
 }).then(value => {
-  console.log(value);
+  console.log("x", value);
 });

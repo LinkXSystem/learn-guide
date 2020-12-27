@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>flamebearer</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<style>
+    html, body { height: 100%; }
+    body { font: 16px "Helvetica Neue", sans-serif; margin: 0; }
+    body.hover { background: #cfc; }
+    h1 { font-size: 30px; margin: 30px 30px 15px; }
+    h1 a { color: black; text-decoration: none; }
+    h1 a:hover { text-decoration: underline; }
+    #fire-icon { fill: #f53; width: 26px; height: 26px; vertical-align: -1px; }
+    #intro { margin: 0 30px; }
+    code { font-size: 13px; color: #444; }
+    code span { color: #aaa; }
+    #canvas { width: 100%; }
+    #controls { display: none; }
+    #search { margin-right: 10px; }
+    #highlight { position: absolute; pointer-events: none; background: #ffffff40; }
+    .loaded #intro { display: none; }
+    .loaded #header { display: flex; align-items: center; flex-flow: row wrap; padding: 7px 10px; }
+    .loaded h1 { font-size: 22px; margin: 0 auto 0 0; flex-shrink: 0; }
+    .loaded #fire-icon { width: 20px; height: 20px; }
+    .loaded #controls { display: block; flex-shrink: 0; }
+    #tooltip { position: absolute; pointer-events: none; background: #ffffff; white-space: nowrap; box-shadow: 1px 2px 4px 0px rgba(0,0,0,0.3); border-radius: 2px; padding: 3px 5px; font: 12px Tahoma, sans-serif; display: none; }
+    #tooltip .path { color: #888; font-size: 11px; }
+    #tooltip .time { color: #4a4; }
+</style>
+</head>
+<body>
+
+<div id="header">
+    <h1><svg id="fire-icon" xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 15 15" style="enable-background:new 0 0 15 15;" xml:space="preserve"><path d="M7.5,0.5L5,4.5l-1.5-2 C2.9452,3.4753,0.8036,5.7924,0.8036,8.3036C0.8036,12.002,3.8017,15,7.5,15s6.6964-2.998,6.6964-6.6964 c0-2.5112-2.1416-4.8283-2.6964-5.8036l-1.5,2L7.5,0.5z M7.5,7c0,0,2.5,2.5618,2.5,4.5c0,0.8371-0.8259,2-2.5,2S5,12.3371,5,11.5 C5,9.6283,7.5,7,7.5,7z"/></svg> <a href="https://github.com/mapbox/flamebearer">flamebearer</a></h1>
+    <div id="controls">
+        <input id="search" placeholder="Search..." />
+        <button id="reset">Reset view</button>
+    </div>
+</div>
+<div id="highlight"></div>
+<div id="tooltip"></div>
+<div id="intro"><!--  --></div>
+<canvas id="canvas" height="0"></canvas>
+
+<!--  -->
+<script>'use strict';
+
+const introEl = document.getElementById('intro');
+const searchEl = document.getElementById('search');
+const highlightEl = document.getElementById('highlight');
+const tooltipEl = document.getElementById('tooltip');
+const canvas = document.getElementById('canvas');
+const ctx = canvas.getContext('2d');
+
+let names, levels, numTicks;
+
+names = ["(unknown)","~(anonymous) :1:1","~(anonymous) :5:10","(lib) C:\u0000am Files\nodejs\node.exe","(lib) C:\u0000WS\u0000M32\ntdll.dll","(unknown)","~bootstrapInternalLoaders internal/bootstrap/loaders.js:42:35","~bootstrapNodeJSCore internal/bootstrap/node.js:15:30","~startup internal/bootstrap/node.js:30:19","~setupProcessFatal internal/bootstrap/node.js:479:29","~NativeModule.require internal/bootstrap/loaders.js:150:34","~NativeModule.compile internal/bootstrap/loaders.js:303:44","~(anonymous) internal/async_hooks.js:1:11","~(anonymous) internal/errors.js:1:11","~E internal/errors.js:195:11","~setupProcessICUVersions internal/bootstrap/node.js:536:35","~setupGlobalVariables internal/bootstrap/node.js:345:32","~(anonymous) util.js:1:11","~(anonymous) internal/util/inspect.js:1:11","~(anonymous) internal/util.js:1:11","(bytecode) ~Star","~(anonymous) buffer.js:1:11","~(anonymous) internal/process/main_thread_only.js:1:11","~(anonymous) assert.js:1:11","~(anonymous) fs.js:1:11","~(anonymous) internal/fs/streams.js:1:11","~(anonymous) stream.js:1:11","~(anonymous) _stream_writable.js:1:11","~inherits util.js:274:18","~setupGlobalConsole internal/bootstrap/node.js:404:30","~setupInspector internal/bootstrap/node.js:442:26","(bytecode) ~LdaNamedProperty","~(anonymous) internal/modules/cjs/loader.js:1:11","~(anonymous) internal/modules/cjs/helpers.js:1:11","~sort native array.js:610:46","~InnerArraySort native array.js:486:24","~QuickSort native array.js:530:19","~Module.runMain internal/modules/cjs/loader.js:816:26","~Module._load internal/modules/cjs/loader.js:557:24","~tryModuleLoad internal/modules/cjs/loader.js:590:23","~Module.load internal/modules/cjs/loader.js:645:33","~Module._extensions..js internal/modules/cjs/loader.js:785:37","~Module._compile internal/modules/cjs/loader.js:703:37","~(anonymous) D:\u0000g??-guide\ncript\u0000ts\u0000r.js:1:1","~timeEnd console.js:236:45","~timeLogImpl console.js:252:21","~log console.js:199:37","~write console.js:146:15","~Writable.write _stream_writable.js:273:36","~writeOrBuffer _stream_writable.js:365:23","~doWrite _stream_writable.js:405:17","~Socket._write net.js:724:35","~Socket._writeGeneric net.js:687:42","~writeGeneric internal/stream_base_commons.js:70:22","~afterWriteDispatched internal/stream_base_commons.js:76:30","~onwrite _stream_writable.js:450:17","~nextTick internal/process/next_tick.js:96:20"];
+levels = [[0,1,0,0,12,5],[0,1,1,0,1,6,0,11,7],[0,1,2,0,1,3,0,11,8],[0,1,3,0,1,4,0,1,9,0,2,10,0,1,15,0,4,16,0,2,29,0,1,37],[0,1,4,1,1,10,0,2,11,0,1,3,0,4,10,0,2,30,0,1,38],[2,1,11,0,2,22,0,1,4,0,4,11,0,2,10,0,1,39],[2,1,12,0,2,10,1,4,17,0,2,11,0,1,40],[2,1,10,0,2,11,1,4,10,0,1,31,0,1,32,0,1,41],[2,1,11,0,2,23,1,4,11,1,1,10,0,1,42],[2,1,13,0,2,10,1,2,18,0,1,20,0,1,21,1,1,11,0,1,43],[2,1,14,0,2,11,1,1,3,0,1,10,1,1,3,1,1,33,0,1,3],[2,1,3,0,2,24,1,1,3,0,1,11,1,1,3,1,1,34,0,1,44],[2,1,3,0,1,3,0,1,10,2,1,19,3,1,35,0,1,45],[3,1,3,0,1,11,2,1,3,3,1,36,0,1,3],[4,1,25,2,1,4,3,1,3,0,1,46],[4,1,10,6,1,4,0,1,47],[4,1,11,7,1,48],[4,1,26,7,1,49],[4,1,10,7,1,50],[4,1,11,7,1,51],[4,1,27,7,1,52],[4,1,28,7,1,53],[4,1,3,7,1,54],[4,1,3,7,1,55],[12,1,56],[12,1,3],[12,1,4]];
+numTicks = 13;
+
+let rangeMin = 0;
+let rangeMax = 1;
+let topLevel = 0;
+let query = '';
+let graphWidth, pxPerTick;
+
+const pxPerLevel = 18;
+const collapseThreshold = 5;
+const hideThreshold = 0.5;
+const labelThreshold = 20;
+
+highlightEl.style.height = pxPerLevel + 'px';
+
+if (levels) {
+    init();
+}
+
+function init() {
+    document.body.classList.add('loaded');
+
+    // delta-decode bar positions
+    for (const level of levels) {
+        let prev = 0;
+        for (let i = 0; i < level.length; i += 3) {
+            level[i] += prev;
+            prev = level[i] + level[i + 1];
+        }
+    }
+
+    updateFromHash();
+    render();
+}
+
+window.onhashchange = () => {
+    updateFromHash();
+    render();
+};
+canvas.onclick = (e) => {
+    const {i, j} = xyToBar(e.offsetX, e.offsetY);
+    if (j === -1) return;
+    window.location.hash = [i, j].join(',');
+    removeHover();
+};
+document.getElementById('reset').onclick = () => {
+    searchEl.value = query = '';
+    window.location.hash = '';
+    render();
+};
+window.onresize = render;
+
+searchEl.oninput = (e) => {
+    query = e.target.value;
+    render();
+};
+
+function updateFromHash() {
+    const [i, j] = window.location.hash.substr(1).split(',').map(Number);
+
+    if (!isNaN(i) && !isNaN(j)) {
+        topLevel = i;
+        rangeMin = levels[i][j] / numTicks;
+        rangeMax = (levels[i][j] + levels[i][j + 1]) / numTicks;
+    } else {
+        topLevel = 0;
+        rangeMin = 0;
+        rangeMax = 1;
+    }
+}
+
+function tickToX(i) {
+    return (i - numTicks * rangeMin) * pxPerTick;
+}
+
+function render() {
+    if (!levels) return;
+
+    graphWidth = canvas.width = canvas.clientWidth;
+    canvas.height = pxPerLevel * (levels.length - topLevel);
+    canvas.style.height = canvas.height + 'px';
+
+    if (devicePixelRatio > 1) {
+        canvas.width *= 2;
+        canvas.height *= 2;
+        ctx.scale(2, 2);
+    }
+
+    pxPerTick = graphWidth / numTicks / (rangeMax - rangeMin);
+
+    ctx.textBaseline = 'middle';
+    ctx.font = '10px Tahoma, sans-serif';
+    ctx.strokeStyle = 'white';
+
+    for (let i = 0; i < levels.length - topLevel; i++) {
+        const level = levels[topLevel + i];
+
+        for (let j = 0; j < level.length; j += 3) {
+            const barIndex = level[j];
+            const x = tickToX(barIndex);
+            const y = i * pxPerLevel;
+            let numBarTicks = level[j + 1];
+
+            const inQuery = query && (names[level[j + 2]].indexOf(query) >= 0) || false;
+
+            // merge very small blocks into big "collapsed" ones for performance
+            const collapsed = numBarTicks * pxPerTick <= collapseThreshold;
+            if (collapsed) {
+                while (
+                    j < level.length - 3 &&
+                    barIndex + numBarTicks === level[j + 3] &&
+                    level[j + 4] * pxPerTick <= collapseThreshold &&
+                    (inQuery === (query && (names[level[j + 5]].indexOf(query) >= 0) || false))
+                ) {
+                    j += 3;
+                    numBarTicks += level[j + 1];
+                }
+            }
+
+            const sw = numBarTicks * pxPerTick - (collapsed ? 0 : 0.5);
+            const sh = pxPerLevel - 0.5;
+
+            if (x < -1 || x + sw > graphWidth + 1 || sw < hideThreshold) continue;
+
+            ctx.beginPath();
+            ctx.rect(x, y, sw, sh);
+
+            const ratio = numBarTicks / numTicks;
+
+            if (!collapsed) {
+                ctx.stroke();
+                const intensity = Math.min(1, ratio * Math.pow(1.16, i) / (rangeMax - rangeMin));
+                const h = 50 - 50 * intensity;
+                const l = 65 + 7 * intensity;
+                ctx.fillStyle = inQuery ? 'lightgreen' : `hsl(${h}, 100%, ${l}%)`;
+            } else {
+                ctx.fillStyle = inQuery ? 'lightgreen' : '#eee';
+            }
+            ctx.fill();
+
+            if (!collapsed && sw >= labelThreshold) {
+
+                const percent = Math.round(10000 * ratio) / 100;
+                const name = `${names[level[j + 2]]} (${percent}%, ${numBarTicks} samples)`;
+
+                ctx.save();
+                ctx.clip();
+                ctx.fillStyle = 'black';
+                ctx.fillText(name, Math.max(x, 0) + 1, y + sh / 2);
+                ctx.restore();
+            }
+        }
+    }
+}
+
+// pixel coordinates to bar coordinates in the levels array
+function xyToBar(x, y) {
+    const i = Math.floor(y / pxPerLevel) + topLevel;
+    const j = binarySearchLevel(x, levels[i]);
+    return {i, j};
+}
+
+// binary search of a block in a stack level
+function binarySearchLevel(x, level) {
+    let i = 0;
+    let j = level.length - 3;
+    while (i <= j) {
+        const m = 3 * ((i / 3 + j / 3) >> 1);
+        const x0 = tickToX(level[m]);
+        const x1 = tickToX(level[m] + level[m + 1]);
+        if (x0 <= x && x1 >= x) {
+            return x1 - x0 > collapseThreshold ? m : -1;
+        }
+        if (x0 > x) {
+            j = m - 3;
+        } else {
+            i = m + 3;
+        }
+    }
+    return -1;
+}
+
+if (window.orientation === undefined) {
+    canvas.onmousemove = addHover;
+    canvas.onmouseout = window.onscroll = removeHover;
+}
+
+function removeHover() {
+    canvas.style.cursor = '';
+    highlightEl.style.display = 'none';
+    tooltipEl.style.display = 'none';
+}
+
+function addHover(e) {
+    const {i, j} = xyToBar(e.offsetX, e.offsetY);
+
+    if (j === -1 || e.offsetX < 0 || e.offsetX > graphWidth) {
+        removeHover();
+        return;
+    }
+
+    canvas.style.cursor = 'pointer';
+
+    const level = levels[i];
+    const x = tickToX(level[j]);
+    const y = (i - topLevel) * pxPerLevel;
+    const sw = tickToX(level[j] + level[j + 1]) - x;
+
+    highlightEl.style.display = 'block';
+    highlightEl.style.left = x + 'px';
+    highlightEl.style.top = (canvas.offsetTop + y) + 'px';
+    highlightEl.style.width = sw + 'px';
+
+    const numBarTicks = level[j + 1];
+    const percent = Math.round(10000 * numBarTicks / numTicks) / 100;
+    const time = `<span class="time">(${percent}%, ${numBarTicks} samples)</span>`;
+    let content = names[level[j + 2]];
+    if (content[0] !== '(') content = content.replace(' ', ` ${time}<br><span class="path">`) + '</span>';
+    else content += ` ${time}`;
+
+    tooltipEl.innerHTML = content;
+    tooltipEl.style.display = 'block';
+    tooltipEl.style.left = (Math.min(e.offsetX + 15 + tooltipEl.clientWidth, graphWidth) - tooltipEl.clientWidth) + 'px';
+    tooltipEl.style.top = (canvas.offsetTop + e.offsetY + 12) + 'px';
+}
+
+// (function frame() { if (levels) render(); requestAnimationFrame(frame); })();
+
+
+</script>
+</body>
+</html>

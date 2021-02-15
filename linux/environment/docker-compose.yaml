@@ -1,0 +1,31 @@
+version: "3.2"
+services:
+  mosquitto:
+    # document: https://hub.docker.com/_/eclipse-mosquitto
+    image: "eclipse-mosquitto:latest"
+    ports:
+      - 1883:1883
+      - 9001:9001
+  redis:
+    # document: https://hub.docker.com/_/redis
+    image: "redis:latest"
+    ports:
+      - ${REDIS_PORT}:6379
+  postgres:
+    # document: https://hub.docker.com/_/postgres
+    image: "postgres:latest"
+    environment:
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    ports:
+      - ${POSTGRES_PORT}:5432
+    volumes:
+      - /tmp/pgdata:/var/lib/postgresql/data
+  mariadb:
+    # document: https://hub.docker.com/_/mariadb
+    image: "mariadb:latest"
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_PASSWORD}
+    ports:
+      - ${POSTGRES_PORT}:5432
+    volumes:
+      - /tmp/mysql:/var/lib/mysql

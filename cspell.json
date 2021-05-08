@@ -1,0 +1,13 @@
+{
+  "ignoreWords": [
+    "eudore",
+    "mosquitto",
+    "postgres",
+    "linksystem",
+    "pgdata",
+    "postgresql",
+    "mariadb",
+    "backends",
+    "frontends"
+  ]
+}

@@ -11,3 +11,12 @@
 brew install basictex
 ```
 
+## 课程
+
+### MIT 18.06
+
+笔记来源为 [mit-18.06-linalg-notes](https://github.com/apachecn/mit-18.06-linalg-notes) , 非个人原创。
+
+## Mathematics for Computer Science
+
+待定
